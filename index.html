@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lucky AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:Arial;background:#0f172a;color:white;text-align:center;padding:20px}
+.box{background:white;color:black;padding:20px;border-radius:15px;max-width:400px;margin:20px auto}
+input{width:90%;padding:12px;border-radius:8px;border:1px solid #ccc}
+button{background:#22c55e;color:white;padding:12px 20px;border:none;border-radius:8px;margin-top:10px;font-weight:bold;width:90%}
+#reply{margin-top:20px;text-align:left;background:#f1f5f9;padding:15px;border-radius:10px;color:#111}
+</style>
+</head>
+<body>
+<h1>🌟 Lucky AI</h1>
+<p>Your Smart Assistant</p>
+<div class="box">
+<input id="q" placeholder="Apna sawal likhein...">
+<br>
+<button onclick="ask()">Poochhein</button>
+<div id="reply">Salam! Main Lucky AI hun. Aapka sawal ka jawab dunga.</div>
+</div>
+<script>
+function ask(){
+ let val=document.getElementById('q').value;
+ let r=document.getElementById('reply');
+ if(!val){r.innerHTML="Pehle sawal likhein!";return;}
+ r.innerHTML="Aapka sawal: <b>"+val+"</b><br><br>Lucky AI ka jawab: Ye bohat acha sawal hai!";
+}
+</script>
+</body>
+  </html>
