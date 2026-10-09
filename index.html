@@ -1,1 +1,46 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content='width=device-width'><title>Lucky AI</title><style>body{background:#0f172a;color:#fff;font-family:sans-serif;display:flex;justify-content:center;padding:20px}div{width:100%;max-width:500px}#c{height:65vh;overflow:auto;background:#fff;color:#000;padding:10px;border-radius:10px}p{padding:8px;border-radius:8px;margin:5px;white-space:pre-wrap}.u{background:#22c55e;color:#fff}.a{background:#eee}</style></head><body><div><h2 style=text-align:center>Lucky AI - All Languages</h2><div id=c><p class=a>Salam bhai! Kisi bhi zaban me bat karo!</p></div><br><div style=display:flex;gap:5px><input id=i style=width:80%;padding:12px;border-radius:20px><button onclick=s() style=padding:12px>Send</button></div></div><script>async function s(){let q=i.value.trim();if(!q)return;c.innerHTML+=`<p class=u>${q}</p>`;i.value='';let d=document.createElement('p');d.className='a';d.innerText='Likh raha hun...';c.appendChild(d);c.scrollTop=c.scrollHeight;try{let system="You are Lucky AI. Reply in SAME language user used. Pashto->Pashto, Saraiki->Saraiki, Urdu->Urdu, Roman Urdu->Roman Urdu, English->English.";let r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:[{role:'system',content:system},{role:'user',content:q}],seed:Math.floor(Math.random()*99999)})});let j=await r.json();let a=j.choices[0].message.content;d.innerText=a;}catch(e){d.innerText='Bhai thora net slow hai, dobara Send karo!';}c.scrollTop=c.scrollHeight}</script></body></html>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name=viewport content='width=device-width'>
+<title>Lucky AI</title>
+<style>
+body{background:#0f172a;color:#fff;font-family:sans-serif;display:flex;justify-content:center;padding:20px}
+div{width:100%;max-width:500px}
+#c{height:65vh;overflow:auto;background:#fff;color:#000;padding:10px;border-radius:10px}
+p{padding:8px;border-radius:8px;margin:5px;white-space:pre-wrap}
+.u{background:#22c55e;color:#fff;text-align:right}
+.a{background:#eee}
+</style>
+</head>
+<body>
+<div>
+<h2 style=text-align:center>Lucky AI - All Languages</h2>
+<div id=c><p class=a>Salam bhai! Kisi bhi zaban me bat karo!</p></div>
+<br>
+<div style=display:flex;gap:5px>
+<input id=i style=width:80%;padding:12px;border-radius:20px placeholder="Yahan likho...">
+<button onclick=s() style=padding:12px;border-radius:10px>Send</button>
+</div>
+</div>
+<script>
+async function s(){
+let q=document.getElementById('i').value.trim();
+if(!q)return;
+let c=document.getElementById('c');
+c.innerHTML+=`<p class=u>${q}</p>`;
+document.getElementById('i').value='';
+let d=document.createElement('p');d.className='a';d.innerText='...';
+c.appendChild(d);c.scrollTop=c.scrollHeight;
+try{
+let sys="You are Lucky AI. Reply in SAME language user used. Roman Urdu->Roman Urdu, Pashto->Pashto, Saraiki->Saraiki, Urdu->Urdu, English->English.";
+let url='https://text.pollinations.ai/'+encodeURIComponent(q)+'?system='+encodeURIComponent(sys)+'&model=openai';
+let r=await fetch(url);
+let t=await r.text();
+d.innerText=t;
+}catch(e){d.innerText='Error: '+e.message;}
+c.scrollTop=c.scrollHeight;
+}
+</script>
+</body>
+</html>
