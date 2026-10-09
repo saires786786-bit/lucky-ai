@@ -1,32 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Lucky AI</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Lucky AI - Smart Assistant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{font-family:Arial;background:#0f172a;color:white;text-align:center;padding:20px}
-.box{background:white;color:black;padding:20px;border-radius:15px;max-width:400px;margin:20px auto}
-input{width:90%;padding:12px;border-radius:8px;border:1px solid #ccc}
-button{background:#22c55e;color:white;padding:12px 20px;border:none;border-radius:8px;margin-top:10px;font-weight:bold;width:90%}
-#reply{margin-top:20px;text-align:left;background:#f1f5f9;padding:15px;border-radius:10px;color:#111}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#0f172a;color:white;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+.container{width:100%;max-width:500px;background:#1e293b;border-radius:20px;padding:25px}
+h1{text-align:center;font-size:28px}
+h1 span{color:#22c55e}
+.sub{text-align:center;color:#94a3b8;margin-bottom:20px;font-size:14px}
+.box{background:white;border-radius:15px;padding:15px}
+#chat{height:300px;overflow-y:auto;color:#0f172a;margin-bottom:12px}
+.msg{padding:10px 14px;border-radius:12px;margin:8px 0;max-width:85%;font-size:14px}
+.user{background:#22c55e;color:white;margin-left:auto}
+.ai{background:#e2e8f0;color:#0f172a}
+.input-area{display:flex;gap:8px}
+input{flex:1;padding:12px;border-radius:25px;border:1px solid #cbd5e1;outline:none}
+button{padding:12px 18px;border:none;border-radius:25px;background:#22c55e;color:white;font-weight:bold}
 </style>
 </head>
 <body>
-<h1>🌟 Lucky AI</h1>
-<p>Your Smart Assistant</p>
+<div class="container">
+<h1>🌟 <span>Lucky AI</span></h1>
+<p class="sub">Your Smart Assistant - Ask Anything!</p>
 <div class="box">
-<input id="q" placeholder="Apna sawal likhein...">
-<br>
-<button onclick="ask()">Poochhein</button>
-<div id="reply">Salam! Main Lucky AI hun. Aapka sawal ka jawab dunga.</div>
+<div id="chat"><div class="msg ai">Assalamu Alaikum! Main Lucky AI hun. Aap mujhse kuch bhi pooch sakte ho ✨</div></div>
+<div class="input-area">
+<input id="userInput" placeholder="Type your message...">
+<button onclick="send()">Send</button>
+</div>
+</div>
 </div>
 <script>
-function ask(){
- let val=document.getElementById('q').value;
- let r=document.getElementById('reply');
- if(!val){r.innerHTML="Pehle sawal likhein!";return;}
- r.innerHTML="Aapka sawal: <b>"+val+"</b><br><br>Lucky AI ka jawab: Ye bohat acha sawal hai!";
-}
+const chat=document.getElementById('chat');
+const input=document.getElementById('userInput');
+const replies=["MashaAllah bohat acha sawal! 🌟","Lucky AI kehta hai: Mehnat jari rakho 🍀","Wow! Aap lucky ho! Kamyabi qareeb hai ✨","Sabr aur Shukr se sab milta hai!","Zabardast! Iska hal ye hai ke himmat na haro."];
+function send(){let t=input.value.trim();if(!t)return;addMsg(t,'user');input.value='';setTimeout(()=>{let r=replies[Math.floor(Math.random()*replies.length)];addMsg(r+"<br><br><b>Q:</b> "+t,'ai');},600);}
+function addMsg(t,c){let d=document.createElement('div');d.className='msg '+c;d.innerHTML=t;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;}
+input.addEventListener('keypress',e=>{if(e.key==='Enter')send();});
 </script>
 </body>
-  </html>
+</html>
