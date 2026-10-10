@@ -1,11 +1,15 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width"><title>Lucky AI Pro</title><style>body{background:#0f172a;color:#fff;font-family:sans-serif;display:flex;justify-content:center;padding:12px;margin:0}.box{width:100%;max-width:520px}#c{height:68vh;overflow:auto;background:#fff;color:#000;padding:10px;border-radius:14px}p{padding:10px;border-radius:12px;margin:7px 0;word-break:break-word}.u{background:#22c55e;color:#fff;text-align:right}.a{background:#f1f5f9}img.chat-img{max-width:100%;border-radius:10px;margin-top:6px}.bar{display:flex;gap:6px;margin-top:10px}input{flex:1;padding:13px;border-radius:22px;border:0;outline:none}button{padding:12px 14px;border-radius:12px;border:0;background:#334155;color:#fff}#send{background:#22c55e}</style></head><body><div class=box><h2 style=text-align:center>Lucky AI - Fixed</h2><div id=c><p class=a>Assalamu Alaikum! Ab error khatam, ab direct jawab aayega!</p></div><div class=bar><button onclick="document.getElementById('f').click()">📷</button><button onclick="genImg()">🖼️</button><button id=micBtn onclick="startMic()">🎤</button><input id=i placeholder="Write or speak..."><button id=send onclick=s()>Send</button></div><input type=file id=f accept="image/*" hidden></div><script>
-let c=document.getElementById('c'), inp=document.getElementById('i');
-document.getElementById('f').onchange=e=>{let file=e.target.files[0];if(!file)return;let r=new FileReader();r.onload=ev=>{c.innerHTML+=`<p class=u>📷<br><img class=chat-img src="${ev.target.result}"></p>`;c.scrollTop=c.scrollHeight;};r.readAsDataURL(file);};
-async function s(){let q=inp.value.trim();if(!q)return;c.innerHTML+=`<p class=u>${q}</p>`;inp.value='';let d=document.createElement('p');d.className='a';d.innerText='...';c.appendChild(d);c.scrollTop=c.scrollHeight;
-try{
-let res=await fetch('https://ai.hackclub.com/chat/completions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'user',content:q}]})});
-let data=await res.json(); let t=data.choices[0].message.content; d.innerText=t;
-}catch(e){d.innerText='Error: '+e.message+' - Dobara try karo';}c.scrollTop=c.scrollHeight;}
-async function genImg(){let q=inp.value.trim();if(!q){alert('Pehle likho kaunsi tasveer banani hai!');return;}c.innerHTML+=`<p class=u>🖼️ ${q}</p>`;inp.value='';let d=document.createElement('p');d.className='a';d.innerHTML=`Ban rahi hai... ⏳`;c.appendChild(d);let url='https://image.pollinations.ai/prompt/'+encodeURIComponent(q)+'?nologo=1&seed='+Date.now();d.innerHTML=`Ye rahi:<br><img class=chat-img src="${url}">`;c.scrollTop=c.scrollHeight;}
-function startMic(){let btn=document.getElementById('micBtn');let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Chrome me kholo');return;}let rec=new SR();rec.lang='ur-PK';rec.start();btn.innerText='🔴';rec.onresult=e=>{inp.value=e.results[0][0].transcript;};rec.onend=()=>{btn.innerText='🎤';};}
-</script></body></html>
+{
+  "name": "Lucky AI",
+  "short_name": "Lucky AI",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/4712/4712109.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
