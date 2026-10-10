@@ -1,51 +1,47 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Lucky AI</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#1a2233;color:white;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-.top{padding:12px;text-align:center;background:#0f172a}
-.top h1{font-size:22px;color:#22c55e}
-.langs{display:flex;gap:8px;justify-content:center;padding:8px;background:#1e293b}
-.langs button{padding:6px 16px;border-radius:20px;border:none;background:#334155;color:white}
-.langs button.active{background:#22c55e;color:black;font-weight:bold}
-#chat{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:#fff;color:#111}
-.msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:15px;line-height:1.4}
-.user{align-self:flex-end;background:#22c55e;color:#000;border-bottom-right-radius:4px}
-.ai{align-self:flex-start;background:#f1f5f9;border:1px solid #e2e8f0}
-.bottom{display:flex;gap:6px;padding:10px;background:#1e293b;align-items:center}
-.icon-btn{width:42px;height:42px;border-radius:50%;border:none;background:#334155;font-size:20px}
-#input{flex:1;padding:12px 16px;border-radius:25px;border:none;outline:none;font-size:16px}
-#send{width:48px;height:48px;border-radius:50%;border:none;background:#22c55e;font-size:20px;cursor:pointer}
+body{margin:0;background:#0f172a;color:#fff;font-family:system-ui;display:flex;flex-direction:column;height:100vh}
+#chat{flex:1;background:#fff;color:#000;padding:10px;overflow:auto}
+.msg{padding:8px 12px;border-radius:12px;margin:6px 0;max-width:85%}
+.user{background:#22c55e;align-self:flex-end;margin-left:auto}
+.ai{background:#eee}
+.bottom{display:flex;padding:10px;background:#1e293b;gap:6px}
+#input{flex:1;padding:12px;border-radius:20px;border:none}
+#send{background:#22c55e;border:none;width:48px;height:48px;border-radius:50%;font-size:20px}
 </style>
 </head>
 <body>
-<div class="top"><h1>🍀 Lucky AI</h1></div>
-<div class="langs">
-<button onclick="setLang('en')" id="b-en">English</button>
-<button onclick="setLang('ar')" id="b-ar">عربي</button>
-<button onclick="setLang('ur')" class="active" id="b-ur">اردو</button>
-<button onclick="setLang('roman')" id="b-roman">Roman</button>
-</div>
-<div id="chat"><div class="msg ai">السلام علیکم بھائی! میں Lucky AI ہوں 🍀 کیسے ہو؟</div></div>
+<div id="chat"><div class="msg ai">السلام علیکم! میں Lucky AI ہوں 🍀</div></div>
 <div class="bottom">
-<button class="icon-btn" onclick="document.getElementById('galInput').click()">📷</button>
-<button class="icon-btn" onclick="document.getElementById('galInput').click()">🖼️</button>
-<button class="icon-btn" onclick="startVoice()">🎤</button>
-<input id="input" placeholder="یہاں لکھیں..." autocomplete="off">
-<button id="send" onclick="sendMsg()">➤</button>
+<input id="input" placeholder="یہاں لکھیں...">
+<button id="send" onclick="send()">➤</button>
 </div>
-<input type="file" id="galInput" accept="image/*" style="display:none">
 <script>
-let lang='ur';
-function setLang(l){lang=l;document.querySelectorAll('.langs button').forEach(b=>b.classList.remove('active'));document.getElementById('b-'+l).classList.add('active');}
-function addMsg(t,w){const c=document.getElementById('chat');let d=document.createElement('div');d.className='msg '+w;d.innerText=t;c.appendChild(d);c.scrollTop=c.scrollHeight;}
-function sendMsg(){let inp=document.getElementById('input');let t=inp.value.trim();if(!t)return;addMsg(t,'user');inp.value='';setTimeout(()=>{if(t.toLowerCase().includes('tasveer')||t.toLowerCase().includes('image')||t.toLowerCase().includes('photo')){let p=encodeURIComponent(t);let c=document.getElementById('chat');let div=document.createElement('div');div.className='msg ai';div.innerHTML='یہ لو تصویر 🖼️<br><img src="https://image.pollinations.ai/prompt/'+p+'?nologo=true" style="max-width:100%;border-radius:10px;margin-top:8px">';c.appendChild(div);c.scrollTop=c.scrollHeight;}else{addMsg('جی بھائی! آپ نے کہا: '+t+'\n\nمیں بالکل ٹھیک ہوں، بتاؤ کیا مدد کروں؟','ai');}},500);}
-document.getElementById('input').addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
-function startVoice(){if(!('webkitSpeechRecognition' in window)){addMsg('وائس کے لیے کروم استعمال کرو بھائی 🎤','ai');return;}let r=new webkitSpeechRecognition();r.lang='ur-PK';r.start();addMsg('🎤 سن رہا ہوں...','ai');r.onresult=e=>{document.getElementById('input').value=e.results[0][0].transcript;sendMsg();};}
+function send(){
+let i=document.getElementById('input');
+let t=i.value.trim();
+if(!t)return;
+let c=document.getElementById('chat');
+let d=document.createElement('div');
+d.className='msg user';
+d.innerText=t;
+c.appendChild(d);
+i.value='';
+c.scrollTop=9999;
+setTimeout(()=>{
+let a=document.createElement('div');
+a.className='msg ai';
+a.innerText='آپ نے کہا: '+t;
+c.appendChild(a);
+c.scrollTop=9999;
+},500);
+}
+document.getElementById('input').addEventListener('keydown',e=>{if(e.key==='Enter')send()});
 </script>
 </body>
 </html>
