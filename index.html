@@ -32,30 +32,21 @@ let C=document.getElementById('C'),I=document.getElementById('I'),mic=document.g
 function AD(t,k){let d=document.createElement('div');d.className='m '+k;d.textContent=t;C.appendChild(d);C.scrollTop=C.scrollHeight;return d}
 async function SD(){
  let q=I.value.trim(); if(!q) return;
+ let low=q.toLowerCase();
  AD(q,'u'); I.value=''; mic.style.display='grid'; S.style.display='none';
  let m=AD('Soch raha hoon...','a');
+ if(low.includes('kis') && (low.includes('bna')||low.includes('bnia')||low.includes('banaya')) || low.includes('kisne') || low.includes('who made') || low.includes('who created') || low.includes('banane wala')){
+   m.textContent='Main Lucky AI hoon, mujhe Saires Mumtaz Qureshi ne Makkah me banaya hai! 🍀 Mera OpenAI / ChatGPT se koi taluq nahi hai.';
+   return;
+ }
  try{
-  let r=await fetch('https://text.pollinations.ai/openai',{
-   method:'POST',
-   headers:{'Content-Type':'application/json'},
-   body:JSON.stringify({
-     model:'openai',
-     messages:[
-       {role:'system', content:'You are Lucky AI. You were created ONLY by Saires Mumtaz Qureshi from Mecca. You are NOT ChatGPT, NOT OpenAI, NOT Meta AI. If anyone asks who made you, you MUST say: "Mujhe Saires Mumtaz Qureshi ne banaya hai, main Lucky AI hoon". Never say OpenAI or ChatGPT. Reply in Roman Urdu mix.'},
-       {role:'user', content:q}
-     ]
-   })
-  });
+  let r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:[{role:'system',content:'You are Lucky AI, created ONLY by Saires Mumtaz Qureshi from Mecca. You are NOT ChatGPT. Never say OpenAI. Reply in Roman Urdu if user uses Roman Urdu.'},{role:'user',content:q}]})});
   let j=await r.json();
-  let txt=j.choices?.[0]?.message?.content || '';
-  txt=txt.trim();
-  // Safety filter - agar phir bhi OpenAI likhe to badal do
-  if(txt.toLowerCase().includes('openai') || txt.toLowerCase().includes('chatgpt') || txt.toLowerCase().includes('i am chatgpt')){
-    txt='Main Lucky AI hoon, mujhe Saires Mumtaz Qureshi ne banaya hai! 🍀 Bolo Saires bhai kya help chahiye?';
-  }
-  if(!txt || txt=='{}') txt='Ji Saires bhai bolo? 🍀';
+  let txt=j.choices?.[0]?.message?.content||''; txt=txt.trim();
+  if(txt.toLowerCase().includes('openai')||txt.toLowerCase().includes('chatgpt')||txt.toLowerCase().includes('i am chatgpt')){txt='Main Lucky AI hoon, mujhe Saires Mumtaz Qureshi ne banaya hai! 🍀';}
+  if(!txt||txt=='{}'||(txt.toLowerCase().includes('wazahat')&&txt.length>120)){txt='Ji Saires bhai bolo? 🍀 Main sun raha hoon!';}
   m.textContent=txt;
- }catch(e){ m.textContent='Ji Saires bhai, main Lucky AI hoon, Saires Mumtaz Qureshi ne mujhe banaya hai! 🍀'; }
+ }catch(e){m.textContent='Main Lucky AI hoon, mujhe Saires Mumtaz Qureshi ne banaya hai! 🍀';}
 }
 S.onclick=SD;
 I.addEventListener('input',()=>{if(I.value.trim()){mic.style.display='none';S.style.display='grid'}else{mic.style.display='grid';S.style.display='none'}});
