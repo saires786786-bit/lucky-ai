@@ -1,7 +1,37 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lucky AI</title><style>*{box-sizing:border-box}body{margin:0;height:100dvh;display:flex;flex-direction:column;background:#e5ddd5;font-family:system-ui}#h{padding:12px;background:#075e54;color:#fff;text-align:center;font-weight:bold}#C{flex:1;overflow:auto;padding:12px;padding-bottom:80px;display:flex;flex-direction:column;gap:8px}.m{padding:10px 14px;border-radius:12px;max-width:80%}.u{background:#dcf8c6;align-self:flex-end}.a{background:#fff;align-self:flex-start}.B{position:fixed;bottom:0;left:0;right:0;background:#f0f0f0;padding:8px;display:flex;gap:8px;align-items:center}.pill{flex:1;background:#fff;border-radius:25px;display:flex;align-items:center;padding:4px 12px;gap:6px}#I{flex:1;border:0;outline:0;font-size:16px;padding:8px}#mic,#S{width:48px;height:48px;border:0;border-radius:50%;background:#25d366;color:#fff;font-size:22px}#S{display:none}</style></head><body><div id="h">🍀 Lucky AI - Saires Mumtaz Qureshi</div><div id="C"><div class="m a">Salam Saires bhai! 🍀 Bilkul Meta AI jaisa tayyar hai!</div></div><div class="B"><div class="pill"><span>😊</span><input id="I" placeholder="Hi"><span>📎</span><span>📷</span></div><button id="mic">🎤</button><button id="S" onclick="SD()">➤</button></div><script>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lucky AI</title>
+<style>
+body{margin:0;height:100vh;display:flex;flex-direction:column;background:#efe7dd;font-family:system-ui}
+#h{padding:12px;background:#075e54;color:#fff;text-align:center;font-weight:bold}
+#C{flex:1;overflow:auto;padding:12px;padding-bottom:80px;display:flex;flex-direction:column;gap:8px}
+.m{padding:10px 14px;border-radius:18px;max-width:80%}
+.u{background:#dcf8c6;align-self:flex-end}
+.a{background:#fff;align-self:flex-start}
+.B{position:fixed;bottom:0;left:0;right:0;background:#f0f0f0;padding:8px;display:flex;gap:8px;align-items:center}
+.pill{flex:1;background:#fff;border-radius:25px;display:flex;align-items:center;padding:5px 12px;gap:6px}
+#I{flex:1;border:0;outline:0;font-size:16px;padding:8px}
+#mic,#S{width:48px;height:48px;border:0;border-radius:50%;background:#25d366;color:#fff;font-size:22px}
+#S{display:none}
+</style>
+</head>
+<body>
+<div id="h">🍀 Lucky AI - Saires Mumtaz Qureshi</div>
+<div id="C"><div class="m a">Salam bhai! Ready hai</div></div>
+<div class="B">
+<div class="pill"><span>😊</span><input id="I" placeholder="Message"><span>📎</span><span>📷</span></div>
+<button id="mic">🎤</button><button id="S">➤</button>
+</div>
+<script>
 let C=document.getElementById('C'),I=document.getElementById('I'),mic=document.getElementById('mic'),S=document.getElementById('S');
 function AD(t,c){let d=document.createElement('div');d.className='m '+c;d.textContent=t;C.appendChild(d);C.scrollTop=9999;return d}
-async function SD(){let q=I.value.trim();if(!q)return;AD(q,'u');I.value='';mic.style.display='block';S.style.display='none';let m=AD('...','a');try{let r=await fetch('https://text.pollinations.ai/'+encodeURIComponent('You are Lucky AI created by Saires Mumtaz Qureshi. Reply in same language. Q:'+q));let x=await r.text();m.textContent=x}catch(e){m.textContent='Bolo bhai?'}} 
-I.addEventListener('input',()=>{if(I.value.trim()!=''){mic.style.display='none';S.style.display='block'}else{mic.style.display='block';S.style.display='none'}});
-I.addEventListener('keydown',e=>{if(e.key==='Enter')SD()});
-</script></body></html>
+async function SD(){let q=I.value.trim();if(!q)return;AD(q,'u');I.value='';mic.style.display='block';S.style.display='none';let m=AD('...','a');try{let r=await fetch('https://text.pollinations.ai/'+encodeURIComponent('You are Lucky AI by Saires Mumtaz Qureshi. Reply same lang: '+q));let x=await r.text();m.textContent=x}catch(e){m.textContent='Bolo bhai?'}} 
+S.onclick=SD;
+I.oninput=()=>{if(I.value.trim()){mic.style.display='none';S.style.display='block'}else{mic.style.display='block';S.style.display='none'}};
+I.onkeydown=e=>{if(e.key==='Enter')SD()};
+</script>
+</body>
+</html>
