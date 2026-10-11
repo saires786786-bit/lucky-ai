@@ -1,56 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="ur">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lucky AI - Saires</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lucky AI - Saires Mumtaz Qureshi</title>
 <style>
-*{box-sizing:border-box;margin:0}
-body{height:100dvh;display:flex;flex-direction:column;background:#efe7dd;font-family:system-ui;overflow:hidden}
-#h{padding:12px;background:#075e54;color:#fff;text-align:center;font-weight:bold}
-#C{flex:1;overflow:auto;padding:12px 12px 90px;display:flex;flex-direction:column;gap:8px}
-.m{padding:10px 14px;border-radius:18px;max-width:80%;font-size:15px;word-wrap:break-word}
+*{box-sizing:border-box;margin:0}body{height:100dvh;display:flex;flex-direction:column;background:#efe7dd;font-family:system-ui,Segoe UI}
+#h{padding:14px;background:#075e54;color:#fff;text-align:center;font-weight:800}
+#C{flex:1;overflow:auto;padding:14px 14px 95px;display:flex;flex-direction:column;gap:10px}
+.m{padding:11px 15px;border-radius:18px;max-width:86%;font-size:15.5px;white-space:pre-wrap;line-height:1.4}
 .u{background:#dcf8c6;align-self:flex-end;border-bottom-right-radius:4px}
-.a{background:#fff;align-self:flex-start;border-bottom-left-radius:4px;white-space:pre-wrap}
-.B{position:fixed;bottom:0;left:0;right:0;background:#f0f0f0;padding:8px 6px 8px 10px;display:flex;align-items:center;gap:6px;width:100%}
-.pill{flex:1;min-width:0;background:#fff;border-radius:28px;display:flex;align-items:center;padding:5px 10px;gap:6px;box-shadow:0 1px 1px #0002}
-.pill input{flex:1;min-width:0;border:0;outline:0;font-size:16px;padding:8px 4px;background:transparent}
-.ic{font-size:20px;flex-shrink:0}
-#mic,#S{width:44px;height:44px;min-width:44px;max-width:44px;border-radius:50%;border:0;background:#25d366;color:#fff;font-size:20px;display:grid;place-items:center;flex-shrink:0;cursor:pointer}
-#S{display:none}
+.a{background:#fff;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 1px #0001}
+.B{position:fixed;bottom:0;left:0;right:0;background:#f0f0f0;padding:8px 8px 10px;display:flex;gap:7px;align-items:center}
+.pill{flex:1;background:#fff;border-radius:28px;display:flex;align-items:center;padding:4px 12px}
+.pill input{flex:1;border:0;outline:0;font-size:16px;padding:9px}
+.icon{font-size:22px;padding:4px;cursor:pointer}
+#S{width:46px;height:46px;border-radius:50%;border:0;background:#25d366;color:#fff;font-size:22px;display:grid;place-items:center;cursor:pointer}
+img.chat-img{max-width:220px;border-radius:12px;margin-top:6px}
 </style>
 </head>
 <body>
-<div id="h">🍀 Lucky AI - Saires Mumtaz Qureshi</div>
-<div id="C"><div class="m a">Salam Saires bhai! 🍀 Main Lucky AI hoon, bolo kya help chahiye?</div></div>
+<div id="h">🍀 Lucky AI - Saires Mumtaz Qureshi | Full Duniya Janta Hai</div>
+<div id="C"><div class="m a">Salam Saires bhai! 🍀 Main Lucky AI hoon! Mujhe Saires Mumtaz Qureshi ne banaya hai!
+
+Main pori duniya janta hoon - Islam, History, Geography, Science, Jeddah, Pakistan, America, sab kuch!
+
+Bolo kya poochna hai? 📷 se photo bhi bhej sakte ho!</div></div>
+
 <div class="B">
-<div class="pill"><span class="ic">😊</span><input id="I" placeholder="Message" autocomplete="off"><span class="ic">📎</span><span class="ic">📷</span></div>
-<button id="mic">🎤</button><button id="S">➤</button>
+  <div class="pill">
+    <span class="icon" onclick="cam.click()">📷</span>
+    <span class="icon" onclick="gal.click()">🖼️</span>
+    <input id="I" placeholder="Koi bhi sawal poocho...">
+  </div>
+  <button id="S">➤</button>
 </div>
+
+<input type="file" id="cam" accept="image/*" capture="environment" style="display:none">
+<input type="file" id="gal" accept="image/*" style="display:none">
+
 <script>
-let C=document.getElementById('C'),I=document.getElementById('I'),mic=document.getElementById('mic'),S=document.getElementById('S');
+const C=document.getElementById('C'), I=document.getElementById('I'), S=document.getElementById('S'), cam=document.getElementById('cam'), gal=document.getElementById('gal');
+let lastImg=null;
 function AD(t,k){let d=document.createElement('div');d.className='m '+k;d.textContent=t;C.appendChild(d);C.scrollTop=C.scrollHeight;return d}
-async function SD(){
- let q=I.value.trim(); if(!q) return;
- let low=q.toLowerCase();
- AD(q,'u'); I.value=''; mic.style.display='grid'; S.style.display='none';
- let m=AD('Soch raha hoon...','a');
- if(low.includes('kis') && (low.includes('bna')||low.includes('bnia')||low.includes('banaya')) || low.includes('kisne') || low.includes('who made') || low.includes('who created')){
-   m.textContent='Main Lucky AI hoon, mujhe Saires Mumtaz Qureshi ne banaya hai! 🍀';
-   return;
- }
+function addImg(src,txt){let d=document.createElement('div');d.className='m u';d.innerHTML=`${txt}<br><img src="${src}" class="chat-img">`;C.appendChild(d);C.scrollTop=C.scrollHeight;lastImg=src;}
+
+function fileHandle(f){let r=new FileReader();r.onload=e=>{addImg(e.target.result,"Ye dekho:");AD("MashAllah bohat pyari hai Saires bhai! 🍀 Bolo is pic ka kya karna hai? Background hatana hai? Cartoon banana hai? Bolo wese bana dunga!",'a');};r.readAsDataURL(f);}
+cam.addEventListener('change',()=>{if(cam.files[0])fileHandle(cam.files[0])});
+gal.addEventListener('change',()=>{if(gal.files[0])fileHandle(gal.files[0])});
+
+async function askAI(question){
+ // BEST API - GPT jaisa jawab dega
+ const system = `You are Lucky AI created by Saires Mumtaz Qureshi. You are an expert of whole world. You know everything like Meta AI. Rules: 1. Reply ONLY in Roman Urdu (Urdu written in English letters), friendly, short, WhatsApp style. Use "Bhai jan, Ji bhai, Haan bhai". 2. Never ask "tafseel batao". Always answer directly. 3. You know Islam, Pakistan, Saudi, Jeddah Balad, world capitals, science, history, current affairs. 4. Never say you are ChatGPT or OpenAI. You are Lucky AI. 5. If user says "kis ne banaya" say "Mujhe Saires Mumtaz Qureshi ne banaya hai".`;
  try{
-  let r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:[{role:'system',content:'You are Lucky AI, created ONLY by Saires Mumtaz Qureshi. You are NOT ChatGPT. Never mention OpenAI or Mecca. Reply in Roman Urdu if user uses Roman Urdu.'},{role:'user',content:q}]})});
-  let j=await r.json();
-  let txt=j.choices?.[0]?.message?.content||''; txt=txt.trim();
-  if(txt.toLowerCase().includes('openai')||txt.toLowerCase().includes('chatgpt')){txt='Main Lucky AI hoon, mujhe Saires Mumtaz Qureshi ne banaya hai! 🍀';}
-  if(!txt||txt=='{}'){txt='Ji Saires bhai bolo? 🍀 Main sun raha hoon!';}
-  m.textContent=txt;
- }catch(e){m.textContent='Main Lucky AI hoon, mujhe Saires Mumtaz Qureshi ne banaya hai! 🍀';}
+   let res = await fetch('https://text.pollinations.ai/openai',{
+     method:'POST',
+     headers:{'Content-Type':'application/json'},
+     body: JSON.stringify({
+       model:'openai',
+       messages:[{role:'system',content:system},{role:'user',content:question}],
+       max_tokens:500
+     })
+   });
+   let data = await res.json();
+   let ans = data.choices?.[0]?.message?.content;
+   if(ans && ans.length>3) return ans;
+   throw 'fallback';
+ }catch(e){
+   // Fallback 2
+   let r2 = await fetch('https://text.pollinations.ai/'+encodeURIComponent(system + " Question: " + question));
+   let t2 = await r2.text();
+   return t2;
+ }
 }
-S.onclick=SD;
-I.addEventListener('input',()=>{if(I.value.trim()){mic.style.display='none';S.style.display='grid'}else{mic.style.display='grid';S.style.display='none'}});
-I.addEventListener('keydown',e=>{if(e.key==='Enter')SD()});
+
+async function SD(){
+ let q=I.value.trim(); if(!q) return; AD(q,'u'); I.value='';
+ let m=AD('Lucky soch raha hai...','a');
+ let low=q.toLowerCase();
+ if((low.includes('kis')&&low.includes('bna'))||low.includes('kisne banaya')){
+   m.textContent='Main Lucky AI hoon, mujhe Saires Mumtaz Qureshi ne Jeddah me banaya hai! 🍀'; return;
+ }
+ let reply = await askAI(q);
+ reply = reply.replace(/OpenAI|ChatGPT|Meta AI/gi,'Lucky AI');
+ m.textContent=reply.trim();
+}
+S.onclick=SD; I.addEventListener('keydown',e=>{if(e.key==='Enter')SD()});
 </script>
 </body>
 </html>
