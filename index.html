@@ -35,18 +35,27 @@ async function SD(){
  AD(q,'u'); I.value=''; mic.style.display='grid'; S.style.display='none';
  let m=AD('Soch raha hoon...','a');
  try{
-  let r=await fetch('https://text.pollinations.ai/'+encodeURIComponent(q));
-  let txt=await r.text();
-  try{let j=JSON.parse(txt); if(j.choices && j.choices[0]) txt=j.choices[0].message.content;}catch(e){}
+  let r=await fetch('https://text.pollinations.ai/openai',{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({
+     model:'openai',
+     messages:[
+       {role:'system', content:'You are Lucky AI. You were created ONLY by Saires Mumtaz Qureshi from Mecca. You are NOT ChatGPT, NOT OpenAI, NOT Meta AI. If anyone asks who made you, you MUST say: "Mujhe Saires Mumtaz Qureshi ne banaya hai, main Lucky AI hoon". Never say OpenAI or ChatGPT. Reply in Roman Urdu mix.'},
+       {role:'user', content:q}
+     ]
+   })
+  });
+  let j=await r.json();
+  let txt=j.choices?.[0]?.message?.content || '';
   txt=txt.trim();
-  if(!txt || txt=='{}' || txt.length<2){
-    let low=q.toLowerCase();
-    if(low.includes('kesy')||low.includes('kese')) txt='Alhamdulillah Saires bhai main bilkul theek hoon! 🍀 Aap sunao?';
-    else if(low.includes('hi')||low.includes('salam')) txt='Wa Alaikum Salam Saires bhai! 🍀 Main Lucky AI hoon!';
-    else txt='Ji Saires bhai bolo? 🍀 '+q;
+  // Safety filter - agar phir bhi OpenAI likhe to badal do
+  if(txt.toLowerCase().includes('openai') || txt.toLowerCase().includes('chatgpt') || txt.toLowerCase().includes('i am chatgpt')){
+    txt='Main Lucky AI hoon, mujhe Saires Mumtaz Qureshi ne banaya hai! 🍀 Bolo Saires bhai kya help chahiye?';
   }
+  if(!txt || txt=='{}') txt='Ji Saires bhai bolo? 🍀';
   m.textContent=txt;
- }catch(e){ m.textContent='Net slow hai bhai, dobara bolo? 🍀'; }
+ }catch(e){ m.textContent='Ji Saires bhai, main Lucky AI hoon, Saires Mumtaz Qureshi ne mujhe banaya hai! 🍀'; }
 }
 S.onclick=SD;
 I.addEventListener('input',()=>{if(I.value.trim()){mic.style.display='none';S.style.display='grid'}else{mic.style.display='grid';S.style.display='none'}});
