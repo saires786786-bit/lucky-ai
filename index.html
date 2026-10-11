@@ -22,4 +22,35 @@ body{height:100dvh;display:flex;flex-direction:column;background:#efe7dd;font-fa
 </head>
 <body>
 <div id="h">🍀 Lucky AI - Saires Mumtaz Qureshi</div>
-<div id="C"><div class="m a">السلام علیکم سائرس بھائی! 🍀 میں Lucky AI ہوں، بولیں کیا چاہ
+<div id="C"><div class="m a">Salam Saires bhai! 🍀 Main Lucky AI hoon, bolo kya help chahiye?</div></div>
+<div class="B">
+<div class="pill"><span class="ic">😊</span><input id="I" placeholder="Message" autocomplete="off"><span class="ic">📎</span><span class="ic">📷</span></div>
+<button id="mic">🎤</button><button id="S">➤</button>
+</div>
+<script>
+let C=document.getElementById('C'),I=document.getElementById('I'),mic=document.getElementById('mic'),S=document.getElementById('S');
+function AD(t,k){let d=document.createElement('div');d.className='m '+k;d.textContent=t;C.appendChild(d);C.scrollTop=C.scrollHeight;return d}
+async function SD(){
+ let q=I.value.trim(); if(!q) return;
+ AD(q,'u'); I.value=''; mic.style.display='grid'; S.style.display='none';
+ let m=AD('Soch raha hoon...','a');
+ try{
+  let r=await fetch('https://text.pollinations.ai/'+encodeURIComponent(q));
+  let txt=await r.text();
+  try{let j=JSON.parse(txt); if(j.choices && j.choices[0]) txt=j.choices[0].message.content;}catch(e){}
+  txt=txt.trim();
+  if(!txt || txt=='{}' || txt.length<2){
+    let low=q.toLowerCase();
+    if(low.includes('kesy')||low.includes('kese')) txt='Alhamdulillah Saires bhai main bilkul theek hoon! 🍀 Aap sunao?';
+    else if(low.includes('hi')||low.includes('salam')) txt='Wa Alaikum Salam Saires bhai! 🍀 Main Lucky AI hoon!';
+    else txt='Ji Saires bhai bolo? 🍀 '+q;
+  }
+  m.textContent=txt;
+ }catch(e){ m.textContent='Net slow hai bhai, dobara bolo? 🍀'; }
+}
+S.onclick=SD;
+I.addEventListener('input',()=>{if(I.value.trim()){mic.style.display='none';S.style.display='grid'}else{mic.style.display='grid';S.style.display='none'}});
+I.addEventListener('keydown',e=>{if(e.key==='Enter')SD()});
+</script>
+</body>
+</html>
