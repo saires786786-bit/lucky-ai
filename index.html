@@ -1,13 +1,72 @@
-<!DOCTYPE html><html lang="ur"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lucky AI - By Saires Mumtaz Qureshi</title><style>*{box-sizing:border-box}body{margin:0;height:100dvh;display:flex;flex-direction:column;font-family:system-ui;background:#0f172a;color:#fff;overflow:hidden}#h{padding:12px;background:#1e293b;text-align:center;font-weight:bold;flex-shrink:0}#C{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px;background:#f8fafc}.m{padding:10px 14px;border-radius:16px;max-width:85%;font-size:15px;color:#000;white-space:pre-wrap;line-height:1.4;word-break:break-word}.u{background:#22c55e;color:#fff;align-self:flex-end}.a{background:#fff;align-self:flex-start;box-shadow:0 1px 3px #0002}.B{width:100%;display:flex;gap:6px;padding:10px;background:#1e293b;align-items:center;flex-shrink:0;position:relative}#I{flex:1;min-width:0;padding:12px 14px;border-radius:25px;border:0;outline:0;font-size:15px;background:#fff;color:#000}button{width:42px;height:42px;min-width:42px;flex-shrink:0;border-radius:50%;border:0;color:#fff;font-size:18px;cursor:pointer;display:grid;place-items:center;user-select:none;-webkit-user-select:none}#S{background:#22c55e}#V{background:#3b82f6;transition:0.2s}#Gbtn{background:#334155}#V.hold{background:#ef4444;animation:jhamak 0.8s infinite;transform:scale(1.15)}@keyframes jhamak{0%{box-shadow:0 0 0 0 #ef4444aa}70%{box-shadow:0 0 0 15px #ef444400}100%{box-shadow:0 0 0 0 #ef444400}}#wave{position:absolute;bottom:65px;left:50%;transform:translateX(-50%);background:#1e293b;padding:8px 16px;border-radius:20px;display:none;gap:4px;align-items:center;color:#60a5fa;font-size:13px;border:1px solid #334155}#wave.show{display:flex}#wave span{width:4px;height:10px;background:#3b82f6;border-radius:10px;animation:lehar 0.7s infinite}#wave span:nth-child(2){animation-delay:0.1s}#wave span:nth-child(3){animation-delay:0.2s}#wave span:nth-child(4){animation-delay:0.3s}@keyframes lehar{0%,100%{height:8px}50%{height:20px}}img{max-width:100%;border-radius:12px;margin-top:8px;display:block}</style></head><body><div id="h">🍀 Lucky AI - Saires Mumtaz Qureshi</div><div id="C"><div class="m a">السلام علیکم! میں Lucky AI ہوں 🍀</div></div><div id="wave"><span></span><span></span><span></span><span></span> سن رہا ہوں... دبا کے رکھو</div><div class="B"><button id="Gbtn" onclick="G.click()">🖼️</button><button id="V">🎤</button><input id="I" placeholder="یہاں لکھو..."><button id="S" onclick="SD()">➤</button></div><input id="G" type="file" accept="image/*" hidden><script>
-let rec,isRec=false,holdTimer=null;
-function AD(t,k){let d=document.createElement('div');d.className='m '+k;d.innerHTML=t;C.appendChild(d);C.scrollTop=C.scrollHeight;return d}
-function speak(t){if('speechSynthesis' in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t.replace(/satarah/gi,'').trim());u.lang='ur-PK';speechSynthesis.speak(u)}}
-async function SD(){let q=I.value.trim();if(!q)return;AD(q,'u');I.value='';let l=q.toLowerCase();if(l.includes('kis')||l.includes('banaya')||l.includes('who')||l.includes('made')||l.includes('openai')||l.includes('gpt')){let a='Mujhe Saires Mumtaz Qureshi ne banaya hai 🍀';AD(a,'a');speak(a);return}if(l.includes('picture')||l.includes('tasveer')||l.includes('image')||l.includes('تصویر')){let m=AD('Tasveer bana raha hun... 🎨','a');let u='https://image.pollinations.ai/prompt/'+encodeURIComponent(q)+'?width=512&height=512&nologo=1&seed='+Date.now();m.innerHTML+='<br><img src="'+u+'" onload="C.scrollTop=C.scrollHeight">';speak('Tasveer bana raha hun');return}let m=AD('Soch raha hun...','a');try{let sys="You are Lucky AI. Creator Saires Mumtaz Qureshi. NOT OpenAI. User: ";let r=await fetch('https://text.pollinations.ai/'+encodeURIComponent(sys+q));let t=await r.text();t=t.replace(/OpenAI|GPT/gi,'Lucky AI');m.textContent=t;speak(t);}catch(e){m.textContent='Ji bolo?';}}
-function startHold(e){e.preventDefault();let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;if(isRec)return;rec=new SR();rec.lang='ur-PK';rec.interimResults=false;rec.continuous=false;isRec=true;V.classList.add('hold');V.textContent='🔴';document.getElementById('wave').classList.add('show');rec.onresult=ev=>{let txt=ev.results[0][0].transcript.trim();if(txt){I.value=txt;}};rec.onend=()=>{stopHold();if(I.value.trim()){SD();}};rec.onerror=()=>{stopHold();};rec.start();}
-function stopHold(){if(!isRec)return;isRec=false;V.classList.remove('hold');V.textContent='🎤';document.getElementById('wave').classList.remove('show');try{rec.stop();}catch(e){}}
-let V=document.getElementById('V');
-V.addEventListener('mousedown',startHold);V.addEventListener('touchstart',startHold,{passive:false});
-V.addEventListener('mouseup',stopHold);V.addEventListener('touchend',stopHold);
-V.addEventListener('mouseleave',stopHold);
+<!DOCTYPE html><html lang="ur"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lucky AI - By Saires Mumtaz Qureshi</title><style>*{box-sizing:border-box}body{margin:0;height:100dvh;display:flex;flex-direction:column;font-family:system-ui;background:#ece5dd;color:#000;overflow:hidden}#h{padding:12px;background:#1e293b;text-align:center;font-weight:bold;color:#fff;flex-shrink:0}#C{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px;background:#e5ddd5}.m{padding:10px 14px;border-radius:16px;max-width:85%;font-size:15px;white-space:pre-wrap;line-height:1.5;word-break:break-word}.u{background:#dcf8c6;align-self:flex-end}.a{background:#fff;align-self:flex-start;box-shadow:0 1px 1px #0002}.B{width:100%;display:flex;gap:8px;padding:8px;background:#f0f0f0;align-items:center;flex-shrink:0}.pill{flex:1;min-width:0;display:flex;align-items:center;gap:6px;background:#fff;border-radius:25px;padding:5px 12px;box-shadow:0 1px 1px #0002}.pill span{font-size:20px;flex-shrink:0;cursor:pointer}.p-icon{opacity:0.5}#I{flex:1;min-width:0;border:0;outline:0;font-size:15px;background:transparent;padding:8px 2px}#mic{width:48px;height:48px;min-width:48px;border-radius:50%;border:0;background:#25d366;color:#fff;font-size:22px;display:grid;place-items:center;cursor:pointer;flex-shrink:0}#mic.hold{background:#ef4444;animation:jhamak 0.8s infinite;transform:scale(1.1)}@keyframes jhamak{0%{box-shadow:0 0 0 0 #ef4444aa}70%{box-shadow:0 0 0 12px #ef444400}100%{box-shadow:0 0 0 0 #ef444400}}#S{width:48px;height:48px;min-width:48px;border-radius:50%;border:0;background:#25d366;color:#fff;font-size:18px;display:none;place-items:center;cursor:pointer}#wave{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);background:#1e293b;padding:8px 14px;border-radius:20px;display:none;gap:4px;align-items:center;color:#fff;font-size:12px}#wave.show{display:flex}#wave span{width:3px;height:8px;background:#25d366;border-radius:10px;animation:lehar 0.7s infinite}#wave span:nth-child(2){animation-delay:0.1s}#wave span:nth-child(3){animation-delay:0.2s}#wave span:nth-child(4){animation-delay:0.3s}@keyframes lehar{0%,100%{height:6px}50%{height:16px}}img{max-width:100%;border-radius:12px;margin-top:6px;display:block}</style></head><body><div id="h">🍀 Lucky AI - Saires Mumtaz Qureshi</div><div id="C"><div class="m a">السلام علیکم سائرس بھائی! میں Lucky AI ہوں 🍀</div></div><div id="wave"><span></span><span></span><span></span><span></span> سن رہا ہوں...</div>
+<div class="B">
+ <div class="pill">
+   <span>😊</span>
+   <input id="I" placeholder="Message">
+   <span class="p-icon" onclick="G.click()">📎</span>
+   <span class="p-icon" onclick="G.click()">📷</span>
+ </div>
+ <button id="mic">🎤</button>
+ <button id="S" onclick="SD()">➤</button>
+</div>
+<input id="G" type="file" accept="image/*" hidden>
+<script>
+const CREATOR="Saires Mumtaz Qureshi";
+let rec,isRec=false;
+function AD(t,k){let d=document.createElement('div');d.className='m '+k;d.textContent=t;C.appendChild(d);C.scrollTop=C.scrollHeight;return d}
+function speak(t){
+ if(!t) return;
+ if('speechSynthesis' in window){
+   speechSynthesis.cancel();
+   // میری طرح صاف آواز
+   let u = new SpeechSynthesisUtterance(t);
+   u.lang = 'ur-PK';
+   u.rate = 0.95;
+   u.pitch = 1;
+   speechSynthesis.speak(u);
+ }
+}
+async function SD(){
+ let q=I.value.trim();if(!q)return;
+ AD(q,'u');I.value='';I.dispatchEvent(new Event('input'));
+ let l=q.toLowerCase();
+ if(l.includes('who made')||l.includes('made you')||l.includes('kis')||l.includes('banaya')||l.includes('creator')){
+   let a="I am made by Saires Mumtaz Qureshi 🍀";
+   let m=AD(a,'a');speak(a);return;
+ }
+ if(l.includes('tasveer')||l.includes('picture')||l.includes('تصویر')||l.includes('image')){
+   let m=document.createElement('div');m.className='m a';m.textContent='Tasveer bana raha hun... 🎨';C.appendChild(m);
+   let u='https://image.pollinations.ai/prompt/'+encodeURIComponent(q)+'?width=512&height=512&nologo=1&seed='+Date.now();
+   m.innerHTML+='<br><img src="'+u+'" onload="C.scrollTop=C.scrollHeight">';C.scrollTop=C.scrollHeight;return;
+ }
+ let m=AD('...','a');
+ try{
+   // یہ ہے اصلی تالا - انگریزی میں نہیں بدلے گا
+   let sys = "You are Lucky AI created by Saires Mumtaz Qureshi. RULES: 1) Answer in EXACT same language and script user used. If user writes in Urdu script, answer in Urdu script. If user writes Roman Urdu, answer in Roman Urdu. 2) NEVER translate user's question to English. NEVER show English on top. 3) Give direct answer only. 4) Creator is ONLY Saires Mumtaz Qureshi. User says: ";
+   let r=await fetch('https://text.pollinations.ai/'+encodeURIComponent(sys+q));
+   let t=await r.text();
+   t=t.replace(/Sayyiriz.*Qureshi|Mufti.*Qureshi|OpenAI|GPT|ChatGPT/gi,'Saires Mumtaz Qureshi');
+   // اگر جواب میں انگریزی ترجمہ آ جائے تو ہٹا دو
+   t=t.trim();
+   m.textContent=t;
+   speak(t);
+ }catch(e){m.textContent='Ji bolo Saires bhai?';}
+}
+I.addEventListener('input',()=>{
+ if(I.value.trim()){mic.style.display='none';S.style.display='grid';}
+ else{mic.style.display='grid';S.style.display='none';}
+});
+function startHold(e){e.preventDefault();let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;if(isRec)return;
+ rec=new SR();rec.lang='ur-PK';rec.interimResults=false;rec.continuous=false;isRec=true;
+ mic.classList.add('hold');mic.textContent='🔴';document.getElementById('wave').classList.add('show');
+ rec.onresult=ev=>{I.value=ev.results[0][0].transcript.trim();I.dispatchEvent(new Event('input'));};
+ rec.onend=()=>{stopHold();if(I.value.trim()){SD();}};
+ rec.onerror=()=>{stopHold();};
+ rec.start();
+}
+function stopHold(){if(!isRec)return;isRec=false;mic.classList.remove('hold');mic.textContent='🎤';document.getElementById('wave').classList.remove('show');try{rec.stop();}catch(e){}}
+let mic=document.getElementById('mic');
+mic.addEventListener('mousedown',startHold);mic.addEventListener('touchstart',startHold,{passive:false});
+mic.addEventListener('mouseup',stopHold);mic.addEventListener('touchend',stopHold);mic.addEventListener('mouseleave',stopHold);
 I.addEventListener('keydown',e=>{if(e.key==='Enter')SD()});
 </script></body></html>
