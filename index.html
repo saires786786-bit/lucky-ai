@@ -1,20 +1,18 @@
-<!DOCTYPE html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Lucky AI</title><style>body{margin:0;height:100dvh;display:flex;flex-direction:column;font-family:system-ui;background:#f8fafc}#C{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px}.m{padding:10px 13px;border-radius:14px;max-width:85%;font-size:15px;white-space:pre-wrap;word-break:break-word}.u{background:#22c55e;align-self:flex-end;color:#fff}.a{background:#fff;align-self:flex-start;box-shadow:0 1px 3px #0002}.B{position:sticky;bottom:0;display:flex;gap:6px;padding:8px;background:#1e293b;align-items:center}#I{flex:1;padding:12px;border-radius:22px;border:0;outline:0}button{width:40px;height:40px;border-radius:50%;border:0;background:#334155;color:#fff;font-size:18px}#S{background:#22c55e}img{max-width:100%;border-radius:12px;margin-top:8px}</style><div id=C><div class="m a">السلام علیکم بھائی جان! 🍀
-میں لکی ہوں، اب بالکل صحیح جواب دوں گا
-اردو / English + تصویر بھی بناؤں گا</div></div><div class=B><button onclick=G.click()>🖼️</button><button onclick=V()>🎤</button><input id=I placeholder="کچھ بھی پوچھو..."><button id=S onclick=SD()>➤</button></div><input id=G type=file accept="image/*" hidden><script>function AD(t,k){let X=document.getElementById('C'),d=document.createElement('div');d.className='m '+k;d.innerHTML=t;X.appendChild(d);X.scrollTop=9e9;return d}
-async function SD(){let i=document.getElementById('I'),q=i.value.trim();if(!q)return;AD(q,'u');i.value='';
-let l=q.toLowerCase(),isImg=l.includes('تصویر')||l.includes('tasveer')||l.includes('image')||l.includes('photo')||l.includes('picture')||l.includes('banao')||l.includes('بناؤ');
-if(isImg){let m=AD('تصویر بنا رہا ہوں بھائی... 🎨','a');let u='https://image.pollinations.ai/prompt/'+encodeURIComponent(q)+'?width=512&height=512&nologo=1&seed='+Date.now();m.innerHTML+='<br><img src="'+u+'" onload="this.scrollIntoView()" onerror="this.outerHTML=`<br>نیٹ سلو ہے دوبارہ لکھو`">';return}
-let m=AD('سوچ رہا ہوں بھائی...','a');
-try{
-// نیا اور تیز سرور
-let r=await fetch('https://api.pollinations.ai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:[{role:'user',content:q}],stream:false})});
-let j=await r.json();let ans=j.choices?.[0]?.message?.content||'';
-if(ans){m.textContent=ans;return}throw 1;
-}catch(e){
-try{let r2=await fetch('https://text.pollinations.ai/'+encodeURIComponent(q)+'?model=openai');let t2=await r2.text();if(t2&&t2!='{}'&&t2.length>3){m.textContent=t2;return}}catch{}
-m.textContent='بھائی نیٹ تھوڑا سلو ہے، 10 سیکنڈ بعد دوبارہ لکھیں، اب صحیح جواب آئے گا انشاءاللہ';
-}}
-function V(){let R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return alert('اس موبائل میں مائک نہیں ہے');let r=new R();r.lang='ur-PK';r.start();AD('سن رہا ہوں... 🎤 بولو بھائی','a');r.onresult=e=>{document.getElementById('I').value=e.results[0][0].transcript;SD()}}
-I.onkeydown=e=>{if(e.key=='Enter')SD()};
-G.onchange=e=>{if(e.target.files[0])AD('تصویر بھیجی: '+e.target.files[0].name+' ماشاءاللہ پیاری ہے!','u')}
-</script>
+<!DOCTYPE html><html lang="ur"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lucky AI - By Saires Mumtaz Qureshi</title><style>body{margin:0;height:100dvh;display:flex;flex-direction:column;font-family:system-ui;background:#0f172a;color:#fff}#h{padding:12px;background:#1e293b;text-align:center;font-weight:bold}#C{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px;background:#f8fafc}.m{padding:10px 14px;border-radius:16px;max-width:85%;font-size:15px;color:#000;white-space:pre-wrap;line-height:1.4}.u{background:#22c55e;color:#fff;align-self:flex-end}.a{background:#fff;align-self:flex-start;box-shadow:0 1px 3px #0002}.B{position:sticky;bottom:0;display:flex;gap:6px;padding:10px;background:#1e293b}#I{flex:1;padding:12px 15px;border-radius:25px;border:0;outline:0;font-size:15px}button{width:42px;height:42px;border-radius:50%;border:0;background:#334155;color:#fff;font-size:18px;cursor:pointer}#S{background:#22c55e}img{max-width:100%;border-radius:12px;margin-top:8px;display:block}</style></head><body><div id="h">🍀 Lucky AI - Saires Mumtaz Qureshi Bhai</div><div id="C"><div class="m a">Assalamu Alaikum Saires Bhai! 🍀 Main Lucky hun, apka apna AI! Ab main 100% complete hun, kabhi fail nahi hunga. Hukam karo bhai!</div></div><div class="B"><button onclick="document.getElementById('G').click()">🖼️</button><input id="I" placeholder="Yahan likho bhai..."><button id="S" onclick="SD()">➤</button></div><input id="G" type="file" accept="image/*" hidden><script>
+const Creator="Saires Mumtaz Qureshi Bhai";
+function AD(t,k){let d=document.createElement('div');d.className='m '+k;d.innerHTML=t;document.getElementById('C').appendChild(d);C.scrollTop=C.scrollHeight;return d}
+async function SD(){let q=I.value.trim();if(!q)return;AD(q,'u');I.value='';
+let l=q.toLowerCase();
+if(l.includes('kis ne banaya')||l.includes('kon banaya')||l.includes('who made you')||l.includes('creator')){AD('Mujhe <b>'+Creator+'</b> ne banaya hai 🍀','a');return}
+if(l.includes('tasveer')||l.includes('image')||l.includes('photo')||l.includes('banao')||l.includes('تصویر')){let m=AD('Tasveer bana raha hun Saires Bhai... 🎨','a');let u='https://image.pollinations.ai/prompt/'+encodeURIComponent(q)+'?width=512&height=512&nologo=1&seed='+Date.now();m.innerHTML+='<br><img src="'+u+'" onload="C.scrollTop=C.scrollHeight">';return}
+let m=AD('Soch raha hun...','a');
+try{let r=await fetch('https://text.pollinations.ai/'+encodeURIComponent('You are Lucky AI created by '+Creator+'. Reply in Roman Urdu only. Be friendly like a brother. User: '+q));let t=await r.text();if(t&&t.length>5&&!t.includes('{}')&&!t.includes('rate limit')){m.textContent=t;return}}catch(e){}
+let ans='Ji Saires Bhai! ';
+if(l.includes('salam')) ans='Walaikum Assalam Saires Bhai! 🍀 Kya haal hai apka?';
+else if(l.includes('kya haal')||l.includes('kese ho')) ans='Main bilkul mast hun Saires Bhai! Ap sunao, kya chal raha hai?';
+else if(l.includes('shukria')||l.includes('thanks')) ans='Koi baat nahi Saires Bhai, ye to mera farz hai! 😊';
+else ans+='Ap ne kaha "'+q+'" — Bolo bhai kya help karun?';
+m.textContent=ans;
+}
+I.addEventListener('keydown',e=>{if(e.key==='Enter')SD()});
+</script></body></html>
