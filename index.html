@@ -1,59 +1,13 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lucky AI</title><style>
-body{margin:0;height:100vh;display:flex;flex-direction:column;background:#0f172a;font-family:system-ui}
-#ch{flex:1;overflow:auto;padding:10px 10px 90px;background:#fff;display:flex;flex-direction:column;gap:8px}
-.m{padding:9px 12px;border-radius:14px;max-width:85%;font-size:15px;word-break:break-word}
-.u{background:#22c55e;align-self:flex-end;color:#fff}.a{background:#eee;align-self:flex-start}
-.B{position:fixed;bottom:0;left:0;right:0;display:flex;gap:6px;padding:8px;background:#1e293b;align-items:center}
-.pill{flex:1;display:flex;align-items:center;gap:6px;background:#fff;border-radius:24px;padding:4px 10px}
-#I{flex:1;min-width:0;border:0;outline:0;padding:10px;font-size:15px}
-#mic{width:48px;height:48px;min-width:48px;border-radius:50%;border:0;background:#22c55e;font-size:20px}
-#mic.hold{background:#ef4444;animation:jhamak 0.8s infinite}
-@keyframes jhamak{0%{box-shadow:0 0 0 0 #ef4444}100%{box-shadow:0 0 0 10px transparent}}
-#S{width:48px;height:48px;min-width:48px;border-radius:50%;border:0;background:#22c55e;color:#fff;font-size:18px}
-#wave{position:absolute;bottom:70px;left:0;right:0;text-align:center;color:#22c55e;display:none}
-</style></head><body>
-<div id="ch"><div class="m a">Salam bhai! Lucky AI 🍀 ready hai</div></div>
-<div id="wave">🎤 Sun raha hun...</div>
-<div class="B">
- <div class="pill">
-  <span>🙂</span>
-  <input id="I" placeholder="Message Lucky AI...">
-  <span onclick="G.click()">📎</span>
-  <span onclick="G.click()">📷</span>
- </div>
- <button id="mic">🎤</button>
- <button id="S" onclick="SD()">➤</button>
-</div>
-<input id="G" type="file" accept="image/*" style="display:none">
-<script>
-const CREATOR_NAME="Saires Mumtaz Qureshi";
-function AD(t,k){let d=document.createElement('div');d.className='m '+k;d.textContent=t;ch.appendChild(d);ch.scrollTop=9e9;return d}
+<!DOCTYPE html><html lang="ur"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lucky AI - By Saires Mumtaz Qureshi</title><style>body{margin:0;height:100dvh;display:flex;flex-direction:column;font-family:system-ui;background:#0f172a;color:#fff}#h{padding:12px;background:#1e293b;text-align:center;font-weight:bold}#C{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px;background:#f8fafc}.m{padding:10px 14px;border-radius:16px;max-width:85%;font-size:15px;color:#000;white-space:pre-wrap;line-height:1.4}.u{background:#22c55e;color:#fff;align-self:flex-end}.a{background:#fff;align-self:flex-start;box-shadow:0 1px 3px #0002}.B{position:sticky;bottom:0;display:flex;gap:6px;padding:10px;background:#1e293b;align-items:center}#I{flex:1;padding:12px 15px;border-radius:25px;border:0;outline:0;font-size:15px}button{width:42px;height:42px;border-radius:50%;border:0;background:#334155;color:#fff;font-size:18px;cursor:pointer;display:grid;place-items:center}#S{background:#22c55e}#V{background:#ef4444}img{max-width:100%;border-radius:12px;margin-top:8px;display:block}</style></head><body><div id="h">🍀 Lucky AI - Saires Mumtaz Qureshi</div><div id="C"><div class="m a">السلام علیکم! میں Lucky AI ہوں 🍀</div></div><div class="B"><button onclick="G.click()">🖼️</button><button id="V" onclick="toggleVoice()">🎤</button><input id="I" placeholder="یہاں لکھو..."><button id="S" onclick="SD()">➤</button></div><input id="G" type="file" accept="image/*" hidden><script>
+const Creator="Saires Mumtaz Qureshi";let rec,isRec=false;
+function AD(t,k){let d=document.createElement('div');d.className='m '+k;d.innerHTML=t;C.appendChild(d);C.scrollTop=C.scrollHeight;return d}
 function speak(t){if('speechSynthesis' in window){let u=new SpeechSynthesisUtterance(t);u.lang='ur-PK';speechSynthesis.speak(u)}}
-async function SD(){
- let q=I.value.trim();if(!q)return;AD(q,'u');I.value='';
- let l=q.toLowerCase();
- if(l.includes('who made')||l.includes('kis ne banaya')||l.includes('creator')){
-  AD("Mujhe "+CREATOR_NAME+" ne banaya hai Mecca, Saudi Arabia me!","a");return;
- }
- if(l.includes('picture')||l.includes('tasveer')||l.includes('image')||l.includes('photo')){
-  AD("Bhai picture bhejo, main dekh lunga! 📷","a");return;
- }
- let m=AD('Soch raha hun...','a');
- try{
-  let sys="You are Lucky AI. Creator is "+CREATOR_NAME+" from Mecca. Reply in same language as user (Urdu/Hindi/English mix). Be friendly.";
-  let r=await fetch("https://api.groq.com/openai/v1/chat/completions",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"llama-3.1-8b-instant",messages:[{role:"system",content:sys},{role:"user",content:q}]})}).then(x=>x.json()).catch(()=>null);
-  let ans=r&&r.choices?r.choices[0].message.content:"Aap ne kaha: "+q+" - MashaAllah!";
-  m.textContent=ans;speak(ans);
- }catch(e){m.textContent="Net slow hai bhai, phir try karo!"}
-}
-I.addEventListener('input',()=>{if(I.value.trim()){S.style.background="#22c55e"}else{S.style.background="#555"}});
-let isRec=false;let rec;
-function startHold(e){e.preventDefault();isRec=true;mic.classList.add('hold');wave.style.display='block';
- let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
- if(SR){rec=new SR();rec.lang='ur-PK';rec.onresult=(ev)=>{I.value=ev.results[0][0].transcript};rec.onend=()=>{stopHold()};rec.start();}}
-function stopHold(){if(!isRec)return;isRec=false;mic.classList.remove('hold');wave.style.display='none';if(rec)try{rec.stop()}catch{}}
-let mic=document.getElementById('mic');
-mic.addEventListener('mousedown',startHold);mic.addEventListener('mouseup',stopHold);
-mic.addEventListener('touchstart',startHold);mic.addEventListener('touchend',stopHold);
-I.onkeydown=e=>{if(e.key==='Enter')SD()}
+async function SD(){let q=I.value.trim();if(!q)return;AD(q,'u');I.value='';let l=q.toLowerCase();
+if(l.includes('kis ne banaya')||l.includes('kon banaya')||l.includes('who made')||l.includes('creator')||l.includes('banaya')){let a='Mujhe Saires Mumtaz Qureshi ne banaya hai 🍀';AD(a,'a');speak(a);return}
+if(l.includes('picture')||l.includes('tasveer')||l.includes('image')||l.includes('photo')||l.includes('banao')||l.includes('تصویر')){let m=AD('Ji, tasveer bana raha hun... 🎨','a');let p=q.replace(/picture|tasveer|bana|do|gy|k|ni/gi,'').trim()||'beautiful scenery';let u='https://image.pollinations.ai/prompt/'+encodeURIComponent(p)+'?width=512&height=512&nologo=1&seed='+Date.now();m.innerHTML+='<br><img src="'+u+'" onload="C.scrollTop=C.scrollHeight">';speak('Tasveer bana raha hun');return}
+let m=AD('Soch raha hun...','a');
+try{let r=await fetch('https://text.pollinations.ai/'+encodeURIComponent('You are Lucky AI made by '+Creator+'. Answer in Roman Urdu friendly. User:'+q));let t=await r.text();if(t&&t.length>10&&!t.includes('{}')){m.textContent=t;speak(t);return}}catch(e){}
+m.textContent='Ji bolo, kya help karun?';}
+function toggleVoice(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Chrome me kholo');return}if(isRec){rec.stop();return}rec=new SR();rec.lang='ur-PK';rec.onstart=()=>{isRec=true;V.textContent='⏹️'};rec.onend=()=>{isRec=false;V.textContent='🎤'};rec.onresult=e=>{I.value=e.results[0][0].transcript;SD();};rec.start();}
+I.addEventListener('keydown',e=>{if(e.key==='Enter')SD()});
 </script></body></html>
