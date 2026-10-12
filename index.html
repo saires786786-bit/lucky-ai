@@ -2,7 +2,7 @@
 <html><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lucky AI</title>
+<title>Lucky</title>
 <style>
 *{margin:0;box-sizing:border-box}
 body{font-family:system-ui;height:100dvh;display:flex;flex-direction:column;background:#efe7dd}
@@ -16,9 +16,9 @@ body{font-family:system-ui;height:100dvh;display:flex;flex-direction:column;back
 #s{border:0;background:#25d366;color:#fff;width:44px;height:44px;border-radius:50%}
 </style></head>
 <body>
-<div id="h">Lucky AI - Saires</div>
+<div id="h">Lucky AI</div>
 <div id="c"></div>
-<div id="b"><input id="i" placeholder="Sawal likho..."><button id="s">></button></div>
+<div id="b"><input id="i" placeholder="Sawal..."><button id="s">></button></div>
 <script>
 let c=document.getElementById('c');
 let i=document.getElementById('i');
@@ -32,12 +32,12 @@ c.scrollTop=9e9;
 return d;
 }
 async function Q(q){
-let url="https://text.pollinations.ai/";
-url+=encodeURIComponent(q);
-url+="?model=openai&system=";
-let sys="You are Lucky AI by Saires. Roman Urdu. Quaid=Jinnah. Iqbal=poet. Know all.";
-url+=encodeURIComponent(sys);
-let r=await fetch(url);
+let u="https://text.pollinations.ai/";
+u+=encodeURIComponent(q);
+u+="?model=openai&system=";
+let y="Lucky AI by Saires.Roman Urdu.";
+u+=encodeURIComponent(y);
+let r=await fetch(u);
 return await r.text();
 }
 async function SND(){
@@ -50,10 +50,13 @@ try{
 let a=await Q(q);
 m.textContent=a;
 }catch(e){
-m.textContent="Net slow hai, dubara bolo bhai";
+let e1="Net slow, phir bolo";
+m.textContent=e1;
 }
 }
 s.onclick=SND;
-i.onkeydown=e=>{if(e.key=='Enter')SND()};
-M("Salam bhai! Main Lucky AI hun. Koi bhi sawal pucho!","a");
+i.onkeydown=e=>{
+if(e.key=='Enter')SND();
+};
+M("Salam! Main Lucky hun","a");
 </script></body></html>
