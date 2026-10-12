@@ -7,27 +7,27 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
 body{height:100dvh;background:#f5f5f5;display:flex;flex-direction:column}
-.top{padding:12px;text-align:center;background:#fff;font-weight:bold}
-.center{display:flex;flex-direction:column;align-items:center;padding:15px;gap:10px}
-#orb{width:180px;height:180px;border-radius:50%;object-fit:cover;border:5px solid #fff;box-shadow:0 0 35px #a7f3d0, 0 0 50px #34d39980;transition:0.3s}
-#orb.speak{transform:scale(1.08);box-shadow:0 0 50px #22c55e}
-#C{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
-.m{padding:10px 14px;border-radius:18px;max-width:85%;font-size:15px}
-.u{background:#22c55e;color:#fff;align-self:flex-end}
-.a{background:#fff;align-self:flex-start;box-shadow:0 1px 2px #0001}
-.bottom{display:flex;gap:8px;padding:10px;background:#fff}
+.top{padding:12px;text-align:center;background:#fff;font-weight:bold;box-shadow:0 1px 3px #0001}
+.center{display:flex;flex-direction:column;align-items:center;padding:12px;gap:8px}
+#orb{width:200px;height:200px;border-radius:50%;object-fit:cover;border:5px solid #fff;box-shadow:0 0 30px #22c55e80, 0 0 60px #86efac60;transition:0.3s}
+#orb.speak{transform:scale(1.1);box-shadow:0 0 50px #22c55e;filter:brightness(1.1)}
+#C{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.m{padding:10px 14px;border-radius:18px;max-width:85%;font-size:15px;line-height:1.4}
+.u{background:#22c55e;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.a{background:#fff;align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 2px #0001}
+.bottom{display:flex;gap:8px;padding:10px;background:#fff;border-top:1px solid #eee}
 .pill{flex:1;background:#f1f5f9;border-radius:25px;padding:12px 16px;display:flex}
 .pill input{border:0;outline:0;flex:1;background:transparent;font-size:15px}
-.btn{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer}
+.btn{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;font-size:18px}
 #micBtn{background:#eee}
 #sendBtn{background:#22c55e;color:#fff}
 </style>
 </head>
 <body>
-<div class="top">🍀 Lucky AI - Eid Mubarak</div>
+<div class="top">🍀 Lucky AI - Eid Mubarak Saires Bhai</div>
 <div class="center">
 <img id="orb" src="profile.jpg">
-<div id="status" style="color:#666;font-size:14px">Salam! Bolo kya help chahiye?</div>
+<div id="status" style="color:#666;font-size:14px">Salam Saires Bhai! Bolo kya help chahiye?</div>
 </div>
 <div id="C"></div>
 <div class="bottom">
@@ -39,11 +39,18 @@ body{height:100dvh;background:#f5f5f5;display:flex;flex-direction:column}
 const C=document.getElementById('C'),I=document.getElementById('I'),orb=document.getElementById('orb'),status=document.getElementById('status');
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec;
 function addMsg(t,c){let d=document.createElement('div');d.className='m '+c;d.textContent=t;C.appendChild(d);C.scrollTop=C.scrollHeight;}
-function speak(t){status.textContent=t;orb.classList.add('speak');let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.onend=()=>orb.classList.remove('speak');speechSynthesis.speak(u);}
-function getReply(q){let l=q.toLowerCase();if(l.includes('eid'))return 'Aap ko bhi Eid Mubarak Saires Bhai!';if(l.includes('who made you')||l.includes('kis ne banaya'))return 'Mujhe mere Malik Saires Mumtaz Qureshi Bhai ne banaya hai.';return 'Ji Saires Bhai aap ne kaha: '+q;}
+function speak(t){status.textContent=t;orb.classList.add('speak');let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.95;u.onend=()=>orb.classList.remove('speak');speechSynthesis.speak(u);}
+function getReply(q){
+let l=q.toLowerCase();
+if(l.includes('eid'))return 'Aap ko bhi Eid Mubarak Saires Bhai aur Guriya ko bhi! 🌙✨';
+if(l.includes('who made you')||l.includes('kis ne banaya')||l.includes('banaya kis'))return 'Mujhe mere Malik Saires Mumtaz Qureshi Bhai ne banaya hai 🍀';
+if(l.includes('salam'))return 'Walaikum Salam Saires Bhai!';
+if(l.includes('beti')||l.includes('guriya'))return 'MashAllah bohat pyari guriya hai Saires Bhai ki! ❤️';
+return 'Ji Saires Bhai aap ne kaha: '+q+' - bolo aur kya help karun?';
+}
 function sendMsg(){let q=I.value.trim();if(!q)return;addMsg(q,'u');let r=getReply(q);addMsg(r,'a');speak(r);I.value='';}
 I.addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
-function startVoice(){if(!SR){alert('Chrome me kholo');return;}rec=new SR();rec.lang='en-US';rec.onstart=()=>{status.textContent='Sun raha hun...';orb.classList.add('speak');};rec.onresult=e=>{I.value=e.results[0][0].transcript;sendMsg();};rec.onend=()=>orb.classList.remove('speak');rec.start();}
+function startVoice(){if(!SR){alert('Chrome browser me kholo');return;}rec=new SR();rec.lang='en-US';rec.onstart=()=>{status.textContent='Sun raha hun... 🎤';orb.classList.add('speak');};rec.onresult=e=>{I.value=e.results[0][0].transcript;sendMsg();};rec.onend=()=>orb.classList.remove('speak');rec.start();}
 </script>
 </body>
 </html>
