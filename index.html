@@ -1,16 +1,49 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lucky AI - By Saires Mumtaz Qureshi</title>
+<title>Lucky AI - Saires Bhai</title>
 <style>
-body{margin:0;height:100dvh;display:flex;flex-direction:column;font-family:system-ui;background:#0f172a;color:#fff}
-#h{padding:12px;background:#1e293b;text-align:center;font-weight:bold}
-#C{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:#f1f5f9}
-.m{padding:11px 14px;border-radius:18px;max-width:85%;font-size:15px;color:#111;white-space:pre-wrap;line-height:1.7;word-break:break-word}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{height:100dvh;background:#f5f5f5;display:flex;flex-direction:column}
+.top{padding:12px;text-align:center;background:#fff;font-weight:bold}
+.center{display:flex;flex-direction:column;align-items:center;padding:15px;gap:10px}
+#orb{width:180px;height:180px;border-radius:50%;object-fit:cover;border:5px solid #fff;box-shadow:0 0 35px #a7f3d0, 0 0 50px #34d39980;transition:0.3s}
+#orb.speak{transform:scale(1.08);box-shadow:0 0 50px #22c55e}
+#C{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.m{padding:10px 14px;border-radius:18px;max-width:85%;font-size:15px}
 .u{background:#22c55e;color:#fff;align-self:flex-end}
-.a{background:#fff;align-self:flex-start;box-shadow:0 1px 3px #0002}
-#B{position:sticky;bottom:0;display:flex;gap:8px;padding:10px;background:#1e293b}
-#I{flex:1;padding:13px 16px;border-radius:25px;border:0;outline:0;font-size:15px}
-#S{width:46
+.a{background:#fff;align-self:flex-start;box-shadow:0 1px 2px #0001}
+.bottom{display:flex;gap:8px;padding:10px;background:#fff}
+.pill{flex:1;background:#f1f5f9;border-radius:25px;padding:12px 16px;display:flex}
+.pill input{border:0;outline:0;flex:1;background:transparent;font-size:15px}
+.btn{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer}
+#micBtn{background:#eee}
+#sendBtn{background:#22c55e;color:#fff}
+</style>
+</head>
+<body>
+<div class="top">🍀 Lucky AI - Eid Mubarak</div>
+<div class="center">
+<img id="orb" src="profile.jpg">
+<div id="status" style="color:#666;font-size:14px">Salam! Bolo kya help chahiye?</div>
+</div>
+<div id="C"></div>
+<div class="bottom">
+<div class="pill"><input id="I" placeholder="Ask Lucky AI..."></div>
+<button class="btn" id="micBtn" onclick="startVoice()">🎤</button>
+<button class="btn" id="sendBtn" onclick="sendMsg()">➤</button>
+</div>
+<script>
+const C=document.getElementById('C'),I=document.getElementById('I'),orb=document.getElementById('orb'),status=document.getElementById('status');
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec;
+function addMsg(t,c){let d=document.createElement('div');d.className='m '+c;d.textContent=t;C.appendChild(d);C.scrollTop=C.scrollHeight;}
+function speak(t){status.textContent=t;orb.classList.add('speak');let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.onend=()=>orb.classList.remove('speak');speechSynthesis.speak(u);}
+function getReply(q){let l=q.toLowerCase();if(l.includes('eid'))return 'Aap ko bhi Eid Mubarak Saires Bhai!';if(l.includes('who made you')||l.includes('kis ne banaya'))return 'Mujhe mere Malik Saires Mumtaz Qureshi Bhai ne banaya hai.';return 'Ji Saires Bhai aap ne kaha: '+q;}
+function sendMsg(){let q=I.value.trim();if(!q)return;addMsg(q,'u');let r=getReply(q);addMsg(r,'a');speak(r);I.value='';}
+I.addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
+function startVoice(){if(!SR){alert('Chrome me kholo');return;}rec=new SR();rec.lang='en-US';rec.onstart=()=>{status.textContent='Sun raha hun...';orb.classList.add('speak');};rec.onresult=e=>{I.value=e.results[0][0].transcript;sendMsg();};rec.onend=()=>orb.classList.remove('speak');rec.start();}
+</script>
+</body>
+</html>
