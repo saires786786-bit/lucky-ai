@@ -1,85 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lucky AI Saires Mumtaz Qureshi</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{height:100dvh;background:#f0fdf4;display:flex;flex-direction:column}
-.top{padding:14px;text-align:center;background:#fff;font-weight:800;font-size:18px;box-shadow:0 1px 4px #0001}
-.center{display:flex;flex-direction:column;align-items:center;padding:16px;gap:10px}
-#orb{width:210px;height:210px;border-radius:50%;object-fit:cover;border:6px solid #fff;box-shadow:0 0 35px #22c55e99,0 0 70px #86efac66;transition:0.35s}
-#orb.speak{transform:scale(1.08);box-shadow:0 0 55px #22c55e}
-#status{color:#15803d;font-size:13px;background:#dcfce7;padding:6px 14px;border-radius:20px;font-weight:600}
-#C{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
-.m{padding:12px 16px;border-radius:20px;max-width:88%;font-size:15px;line-height:1.7;white-space:pre-wrap}
-.u{background:#22c55e;color:#fff;align-self:flex-end;border-bottom-right-radius:6px}
-.a{background:#fff;align-self:flex-start;border-bottom-left-radius:6px;box-shadow:0 2px 6px #0001}
-.bottom{display:flex;gap:8px;padding:12px;background:#fff;border-top:1px solid #e5e7eb}
-.pill{flex:1;background:#f1f5f9;border-radius:28px;padding:12px 18px;display:flex}
-.pill input{border:0;outline:0;flex:1;background:transparent;font-size:15px}
-.btn{width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center}
-#micBtn{background:#e2e8f0}
-#sendBtn{background:#22c55e;color:#fff}
-</style>
-</head>
-<body>
-<div class="top">🍀 Lucky AI Saires Mumtaz Qureshi</div>
-<div class="center">
-<img id="orb" src="profile.jpg?v=100">
-<div id="status">Salam Saires Bhai! Kuch bhi pucho...</div>
-</div>
-<div id="C"></div>
-<div id="typing" style="display:none;color:#666;font-size:13px;padding:4px 14px">Lucky AI soch rahi hai...</div>
-<div class="bottom">
-<div class="pill"><input id="I" placeholder="Urdu me kuch bhi pucho..."></div>
-<button class="btn" id="micBtn" onclick="startVoice()">🎤</button>
-<button class="btn" id="sendBtn" onclick="sendMsg()">➤</button>
-</div>
-<script>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lucky AI</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}body{height:100dvh;background:#f0fdf4;display:flex;flex-direction:column}.top{padding:14px;text-align:center;background:#fff;font-weight:800;font-size:18px}.center{display:flex;flex-direction:column;align-items:center;padding:16px;gap:10px}#orb{width:210px;height:210px;border-radius:50%;object-fit:cover;border:6px solid #fff;box-shadow:0 0 35px #22c55e99}#orb.speak{transform:scale(1.08)}#status{color:#15803d;font-size:13px;background:#dcfce7;padding:6px 14px;border-radius:20px;font-weight:600}#C{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}.m{padding:12px 16px;border-radius:20px;max-width:88%;font-size:15px;line-height:1.7;white-space:pre-wrap}.u{background:#22c55e;color:#fff;align-self:flex-end}.a{background:#fff;align-self:flex-start;box-shadow:0 2px 6px #0001}.bottom{display:flex;gap:8px;padding:12px;background:#fff;border-top:1px solid #e5e7eb}.pill{flex:1;background:#f1f5f9;border-radius:28px;padding:12px 18px;display:flex}.pill input{border:0;outline:0;flex:1;background:transparent;font-size:15px}.btn{width:48px;height:48px;border-radius:50%;border:0;cursor:pointer;font-size:20px}#micBtn{background:#e2e8f0}#sendBtn{background:#22c55e;color:#fff}</style></head><body><div class="top">🍀 Lucky AI Saires Mumtaz Qureshi</div><div class="center"><img id="orb" src="profile.jpg?v=100"><div id="status">Salam Saires Bhai!</div></div><div id="C"></div><div id="typing" style="display:none;color:#666;font-size:13px;padding:4px 14px">Soch rahi hun...</div><div class="bottom"><div class="pill"><input id="I" placeholder="Urdu me pucho..."></div><button class="btn" id="micBtn" onclick="startVoice()">🎤</button><button class="btn" id="sendBtn" onclick="sendMsg()">➤</button></div><script>
 const C=document.getElementById('C'),I=document.getElementById('I'),orb=document.getElementById('orb'),status=document.getElementById('status'),typing=document.getElementById('typing');
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec;
-const SYSTEM="Tum Lucky AI ho, tumhe Saires Mumtaz Qureshi ne banaya hai. Tum bohat intelligent ho, puri duniya ke sawal ka jawab deti ho. Tumhari Urdu sab se achi hai. Hamesha 'Saires Bhai' keh kar izzat se baat karo. Agar puche kis ne banaya to bolo Saires Mumtaz Qureshi ne. Har topic aata hai tumhe.";
-
+const SYSTEM="Tum Lucky AI ho, tumhe Saires Mumtaz Qureshi ne banaya hai. Tum intelligent ho, puri duniya ke sawal ka Urdu me jawab deti ho. Hamesha izzat se baat karo.";
 function addMsg(t,c){let d=document.createElement('div');d.className='m '+c;d.textContent=t;C.appendChild(d);C.scrollTop=C.scrollHeight;}
 function speak(t){orb.classList.add('speak');let u=new SpeechSynthesisUtterance(t.replace(/[*#]/g,''));u.lang='ur-PK';u.rate=0.92;u.onend=()=>orb.classList.remove('speak');speechSynthesis.cancel();speechSynthesis.speak(u);}
-
-async function askAI(q){
-try{
-typing.style.display='block';
-const prompt=SYSTEM+"\\nSawal: "+q+"\\nJawab Urdu me do:";
-const url="https://text.pollinations.ai/"+encodeURIComponent(prompt)+"?model=openai&seed="+Date.now();
-const r=await fetch(url);
-let ans=await r.text();
-return ans.trim();
-}catch(e){
-let l=q.toLowerCase();
-if(l.includes('salam')) return 'Walaikum Salam Saires Mumtaz Qureshi! ❤️';
-if(l.includes('kis')&&l.includes('banaya')) return 'Mujhe Saires Mumtaz Qureshi ne banaya hai 🍀';
-if(l.includes('pakistan')) return 'Pakistan Quaid-e-Azam Muhammad Ali Jinnah ne 14 August 1947 ko banaya tha. Pakistan ka matlab La Ilaha Illallah!';
-return 'Saires Bhai, network slow hai, dobara pucho, main puri tafseel se jawab dungi!';
-}finally{typing.style.display='none';}
-}
-
-async function sendMsg(){
-let q=I.value.trim();if(!q)return;
-addMsg(q,'u');I.value='';
-let r=await askAI(q);
-addMsg(r,'a');speak(r);
-}
-I.addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
-document.getElementById('sendBtn').onclick=sendMsg;
-
-function startVoice(){
-if(!SR){alert('Chrome me kholo');return;}
-rec=new SR();rec.lang='ur-PK';
-rec.onstart=()=>{orb.classList.add('speak');typing.style.display='block';typing.textContent='Sun rahi hun...';};
-rec.onresult=e=>{I.value=e.results[0][0].transcript;};
-rec.onend=()=>{orb.classList.remove('speak');typing.style.display='none';if(I.value.trim())sendMsg();};
-rec.start();
-}
-window.onload=()=>{addMsg('Assalam-o-Alaikum Saires Mumtaz Qureshi! 🌙\\nMain Lucky AI hun, aap ki beti ki tasveer wali!\\nAb main puri duniya ke sawalon ka jawab de sakti hun, meri Urdu sab se achi hai. Kuch bhi pucho!', 'a');};
-</script>
-</body>
-</html>
+async function askAI(q){try{typing.style.display='block';const p=SYSTEM+"\\nSawal: "+q+"\\nJawab Urdu me:";const url="https://text.pollinations.ai/"+encodeURIComponent(p)+"?model=openai&seed="+Date.now();const r=await fetch(url);return (await r.text()).trim();}catch(e){let l=q.toLowerCase();if(l.includes('salam'))return 'Walaikum Salam Saires Mumtaz Qureshi!';if(l.includes('kis')&&l.includes('banaya'))return 'Mujhe Saires Mumtaz Qureshi ne banaya hai';if(l.includes('pakistan'))return 'Pakistan Quaid-e-Azam ne 14 Aug 1947 ko banaya!';return 'Network slow hai, dobara pucho!';}finally{typing.style.display='none';}}
+async function sendMsg(){let q=I.value.trim();if(!q)return;addMsg(q,'u');I.value='';let r=await askAI(q);addMsg(r,'a');speak(r);}I.addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});document.getElementById('sendBtn').onclick=sendMsg;
+function startVoice(){if(!SR){alert('Chrome me kholo');return;}rec=new SR();rec.lang='ur-PK';rec.onstart=()=>{orb.classList.add('speak');typing.style.display='block';typing.textContent='Sun rahi hun...';};rec.onresult=e=>{I.value=e.results[0][0].transcript;};rec.onend=()=>{orb.classList.remove('speak');typing.style.display='none';if(I.value.trim())sendMsg();};rec.start();}
+window.onload=()=>{addMsg('Salam Saires Mumtaz Qureshi! Main Lucky AI hun 🌙\\nAb main har sawal ka jawab dungi!', 'a');};
+</script></body></html>
