@@ -1,25 +1,16 @@
-<!DOCTYPE html><html lang="ur"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lucky AI - By Saires Mumtaz Qureshi</title><style>body{margin:0;height:100dvh;display:flex;flex-direction:column;font-family:system-ui;background:#0f172a;color:#fff}#h{padding:12px;background:#1e293b;text-align:center;font-weight:bold}#C{flex:1;overflow:auto;padding:10px;display:flex;flex-direction:column;gap:8px;background:#f8fafc}.m{padding:10px 14px;border-radius:16px;max-width:85%;font-size:15px;color:#000;white-space:pre-wrap;line-height:1.6;word-break:break-word}.u{background:#22c55e;color:#fff;align-self:flex-end}.a{background:#fff;align-self:flex-start;box-shadow:0 1px 3px #0002}.B{position:sticky;bottom:0;display:flex;gap:6px;padding:10px;background:#1e293b;align-items:center}#I{flex:1;padding:12px 15px;border-radius:25px;border:0;outline:0;font-size:15px}button{width:42px;height:42px;border-radius:50%;border:0;background:#334155;color:#fff;font-size:18px;cursor:pointer;display:grid;place-items:center}#S{background:#22c55e}#V{background:#ef4444}</style></head><body><div id="h">🍀 Lucky AI - Saires Mumtaz Qureshi</div><div id="C"><div class="m a">Assalamu Alaikum Saires Bhai! 🍀 Puchho jo puchna hai!</div></div><div class="B"><button id="V" onclick="toggleVoice()">🎤</button><input id="I" placeholder="Yahan likho..."><button id="S" onclick="SD()">➤</button></div><script>
-function AD(t,k){let d=document.createElement('div');d.className='m '+k;d.textContent=t.replace(/Cyrus/gi,'Saires');C.appendChild(d);C.scrollTop=C.scrollHeight;return d}
-async function SD(){
- let q=I.value.trim();if(!q)return;
- AD(q,'u'); // Aap ka sawal jaisa hai waisa hi rahega
- I.value='';
- let l=q.toLowerCase();
- if(l.includes('pakistan kis')||l.includes('pakistan kon')||l.includes('who made pakistan')){AD('Pakistan Quaid-e-Azam Muhammad Ali Jinnah ne 14 August 1947 ko banaya tha, Allama Iqbal ke khwab ki tabeer hai.','a');return}
- if(l=='hi'||l=='hello'||l=='salam'){AD('Walaikum Salam Saires Bhai! Bolo kya help chahiye?','a');return}
- if(l.includes('okay')||l.includes('theek')){AD('Ji Saires Bhai hukam karen 🍀','a');return}
- if(l.includes('kis ne banaya')||l.includes('who made you')){AD('Mujhe Saires Mumtaz Qureshi Bhai ne banaya hai 🍀','a');return}
- let m=AD('Soch raha hun...','a');
- try{
-  // Ab sawal ko translate nahi karega
-  let sys="You are Lucky AI. Creator is SAIRES MUMTAZ QURESHI BHAI. Never say Cyrus. Do NOT translate user question to English. Keep user question as it is. Answer in SAME language as user question. If user writes Roman Urdu, answer in Roman Urdu. If Urdu script, answer in Urdu script. Fact: Pakistan made by Quaid-e-Azam Muhammad Ali Jinnah on 14 Aug 1947.";
-  let r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'system',content:sys},{role:'user',content:q}],model:'openai'})});
-  let j=await r.json();
-  let t=j.choices?.[0]?.message?.content || '';
-  if(t){m.textContent=t.replace(/Cyrus/gi,'Saires');return}
- }catch(e){}
- m.textContent='Ji Saires Bhai, net slow hai, dubara pucho 🍀';
-}
-function toggleVoice(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Chrome kholo');return}let rec=new SR();rec.lang='ur-PK';rec.onresult=e=>{I.value=e.results[0][0].transcript;SD();};rec.start();}
-I.addEventListener('keydown',e=>{if(e.key==='Enter')SD()});
-</script></body></html>
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lucky AI - By Saires Mumtaz Qureshi</title>
+<style>
+body{margin:0;height:100dvh;display:flex;flex-direction:column;font-family:system-ui;background:#0f172a;color:#fff}
+#h{padding:12px;background:#1e293b;text-align:center;font-weight:bold}
+#C{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:#f1f5f9}
+.m{padding:11px 14px;border-radius:18px;max-width:85%;font-size:15px;color:#111;white-space:pre-wrap;line-height:1.7;word-break:break-word}
+.u{background:#22c55e;color:#fff;align-self:flex-end}
+.a{background:#fff;align-self:flex-start;box-shadow:0 1px 3px #0002}
+#B{position:sticky;bottom:0;display:flex;gap:8px;padding:10px;background:#1e293b}
+#I{flex:1;padding:13px 16px;border-radius:25px;border:0;outline:0;font-size:15px}
+#S{width:46
