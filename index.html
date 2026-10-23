@@ -3,56 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lucky AI</title>
+<title>Lucky AI - Saires</title>
 <style>
-*{margin:0;box-sizing:border-box}
-body{font-family:system-ui;height:100dvh;display:flex;flex-direction:column;background:#0f0f0f;color:#fff}
-#h{background:#000;color:#fff;padding:14px;text-align:center;font-weight:bold;font-size:18px;border-bottom:1px solid #222}
-#c{flex:1;overflow:auto;padding:12px;padding-bottom:90px;display:flex;flex-direction:column;gap:10px}
-.m{padding:12px 16px;border-radius:18px;max-width:85%;font-size:15px;line-height:1.5;white-space:pre-wrap;color:#000}
-.u{background:#0084ff;color:#fff;align-self:flex-end}
-.a{background:#fff;align-self:flex-start}
-.a img{max-width:100%;border-radius:12px;margin-top:8px}
-#b{position:fixed;bottom:0;left:0;right:0;display:flex;gap:8px;padding:10px;background:#000;border-top:1px solid #222}
-#i{flex:1;border:1px solid #333;border-radius:25px;padding:12px 16px;outline:0;font-size:15px;background:#1a1a1a;color:#fff}
-#s{border:0;background:#0084ff;color:#fff;width:50px;height:50px;border-radius:50%;font-size:20px}
+*{margin:0;box-sizing:border-box}body{font-family:system-ui;background:#0f0f0f;color:#fff;height:100dvh;display:flex;flex-direction:column}#h{background:#000;padding:14px;text-align:center;font-weight:bold;border-bottom:1px solid #222}#c{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:12px;padding-bottom:90px}.m{padding:12px 16px;border-radius:18px;max-width:85%;line-height:1.5}.u{background:#0084ff;align-self:flex-end}.a{background:#1e1e1e;align-self:flex-start;border:1px solid #333}#b{position:fixed;bottom:0;left:0;right:0;display:flex;padding:10px;background:#000;gap:8px;border-top:1px solid #222}#i{flex:1;border:1px solid #333;border-radius:25px;padding:12px 18px;background:#222;color:#fff;outline:none}#s{background:#0084ff;color:#fff;border:none;border-radius:25px;padding:12px 20px;font-weight:bold}
 </style>
 </head>
 <body>
-<div id="h">Lucky AI ✨ Online</div>
-<div id="c"></div>
-<div id="b"><input id="i" placeholder="کچھ بھی پوچھو..."><button id="s">➤</button></div>
+<div id="h">Lucky AI 🤖 - Saires Khan</div>
+<div id="c"><div class="m a">Assalam o Alaikum! Lucky AI ready hai. Bolo kya help chahiye?</div></div>
+<div id="b"><input id="i" placeholder="Kuch likho..."><button id="s">Send</button></div>
 <script>
-const API_KEY = "YAHAN_APNI_NAYI_GEMINI_KEY_DALO";
-let c=document.getElementById('c'),inp=document.getElementById('i'),btn=document.getElementById('s');
-function add(t,cls,isImg=false){
-let d=document.createElement('div');d.className='m '+cls;
-if(isImg){let im=document.createElement('img');im.src=t;d.appendChild(im);}else{d.textContent=t;}
-c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
-}
-async function askAI(q){
-if(q.toLowerCase().includes("tasveer")||q.toLowerCase().includes("image")||q.toLowerCase().includes("picture")||q.includes("تصویر")){
-add("جی بھائی، تصویر بنا رہا ہوں...","a");
-let img=`https://image.pollinations.ai/prompt/${encodeURIComponent(q)}?width=512&height=512&nologo=true&seed=${Date.now()}`;
-setTimeout(()=>{add(img,"a",true);},1000);
-return;
-}
-let load=add("سوچ رہا ہوں...","a");
-try{
-let res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,{
-method:"POST",headers:{"Content-Type":"application/json"},
-body:JSON.stringify({contents:[{parts:[{text:`Tum Lucky AI ho, tumhe Saires bhai ne banaya hai. Tum hamesha Roman Urdu ya Urdu me pyar se jawab dete ho. Sawal: ${q}` }]}]})
-});
-let data=await res.json();
-load.remove();
-let ans=data.candidates?.[0]?.content?.parts?.[0]?.text;
-if(!ans) ans="بھائی Key کا مسئلہ ہے۔ نئی Key ڈال کر دوبارہ چیک کرو۔";
-add(ans,"a");
-}catch(e){load.remove();add("انٹرنیٹ یا API Key کا مسئلہ ہے بھائی۔","a");}
-}
-function send(){let q=inp.value.trim();if(!q)return;add(q,"u");inp.value="";askAI(q);}
-btn.onclick=send;inp.onkeydown=e=>{if(e.key=="Enter")send();};
-add("السلام علیکم! میں Lucky AI ہوں۔ اب میرا دماغ نیا ہے، ہر سوال کا صحیح جواب دوں گا اور تصویر بھی بناؤں گا۔","a");
+const API_KEY = "YAHAN_APNI_API_KEY_DALO";
+const c=document.getElementById('c'),inp=document.getElementById('i'),btn=document.getElementById('s');
+function add(t,cls){let d=document.createElement('div');d.className='m '+cls;d.textContent=t;c.appendChild(d);c.scrollTop=c.scrollHeight}
+async function ask(q){add(q,'u');inp.value='';try{let r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:q}]}]})});let j=await r.json();let ans=j.candidates?.[0]?.content?.parts?.[0]?.text||"Bhai API Key galat hai, check karo";add(ans,'a')}catch(e){add("Error: API Key galat hai ya net slow hai",'a')}}
+btn.onclick=()=>{if(inp.value.trim())ask(inp.value.trim())};inp.onkeydown=e=>{if(e.key==='Enter'&&inp.value.trim())ask(inp.value.trim())}
 </script>
 </body>
 </html>
