@@ -3,22 +3,56 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lucky AI Saires Mumtaz Qureshi</title>
-<style>body{height:100dvh;background:#f0fdf4;display:flex;flex-direction:column;font-family:system-ui;margin:0}.top{padding:14px;text-align:center;background:#fff;font-weight:800;font-size:18px;color:#14532d}.center{display:flex;flex-direction:column;align-items:center;padding:16px;gap:10px}#orb{width:220px;height:220px;border-radius:50%;object-fit:cover;border:6px solid #fff;box-shadow:0 0 35px #22c55e99}#C{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px}.m{padding:12px 16px;border-radius:20px;max-width:88%;font-size:15px;white-space:pre-wrap}.u{background:#22c55e;color:#fff;align-self:flex-end}.a{background:#fff;align-self:flex-start}.bottom{display:flex;gap:8px;padding:12px;background:#fff}.pill{flex:1;background:#f1f5f9;border-radius:28px;padding:12px 18px;display:flex}.pill input{border:0;outline:0;flex:1;background:transparent}.btn{width:48px;height:48px;border-radius:50%;border:0;font-size:20px}#sendBtn{background:#22c55e;color:#fff}</style>
+<title>Lucky AI</title>
+<style>
+*{margin:0;box-sizing:border-box}
+body{font-family:system-ui;height:100dvh;display:flex;flex-direction:column;background:#0f0f0f;color:#fff}
+#h{background:#000;color:#fff;padding:14px;text-align:center;font-weight:bold;font-size:18px;border-bottom:1px solid #222}
+#c{flex:1;overflow:auto;padding:12px;padding-bottom:90px;display:flex;flex-direction:column;gap:10px}
+.m{padding:12px 16px;border-radius:18px;max-width:85%;font-size:15px;line-height:1.5;white-space:pre-wrap;color:#000}
+.u{background:#0084ff;color:#fff;align-self:flex-end}
+.a{background:#fff;align-self:flex-start}
+.a img{max-width:100%;border-radius:12px;margin-top:8px}
+#b{position:fixed;bottom:0;left:0;right:0;display:flex;gap:8px;padding:10px;background:#000;border-top:1px solid #222}
+#i{flex:1;border:1px solid #333;border-radius:25px;padding:12px 16px;outline:0;font-size:15px;background:#1a1a1a;color:#fff}
+#s{border:0;background:#0084ff;color:#fff;width:50px;height:50px;border-radius:50%;font-size:20px}
+</style>
 </head>
 <body>
-<div class="top">🍀 Lucky AI Saires Mumtaz Qureshi</div>
-<div class="center"><img id="orb" src="profile.jpg?v=1000"><div style="color:#15803d;background:#dcfce7;padding:6px 14px;border-radius:20px">Salam Saires Bhai!</div></div>
-<div id="C"></div>
-<div class="bottom"><div class="pill"><input id="I" placeholder="Urdu me pucho..."></div><button class="btn" onclick="startVoice()">🎤</button><button class="btn" id="sendBtn" onclick="sendMsg()">➤</button></div>
+<div id="h">Lucky AI ✨ Online</div>
+<div id="c"></div>
+<div id="b"><input id="i" placeholder="کچھ بھی پوچھو..."><button id="s">➤</button></div>
 <script>
-const C=document.getElementById('C'),I=document.getElementById('I'),orb=document.getElementById('orb');
-const SYSTEM="Tum Lucky AI ho, tumhe Saires Mumtaz Qureshi ne banaya hai. Urdu me jawab do.";
-function addMsg(t,c){let d=document.createElement('div');d.className='m '+c;d.textContent=t;C.appendChild(d);C.scrollTop=C.scrollHeight;}
-async function askAI(q){try{const url="https://text.pollinations.ai/"+encodeURIComponent(SYSTEM+" Sawal: "+q)+"?model=openai";const r=await fetch(url);return (await r.text()).trim();}catch(e){return "Mujhe Saires Mumtaz Qureshi ne banaya hai. Pakistan Quaid-e-Azam ne banaya!";}}
-async function sendMsg(){let q=I.value.trim();if(!q)return;addMsg(q,'u');I.value='';let r=await askAI(q);addMsg(r,'a');let u=new SpeechSynthesisUtterance(r);u.lang='ur-PK';speechSynthesis.speak(u);}
-function startVoice(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec=new SR();rec.lang='ur-PK';rec.onresult=e=>{I.value=e.results[0][0].transcript;};rec.onend=()=>{if(I.value)sendMsg();};rec.start();}
-window.onload=()=>{addMsg('Salam Saires Mumtaz Qureshi! Main Lucky AI hun 🌙','a');};
+const API_KEY = "YAHAN_APNI_NAYI_GEMINI_KEY_DALO";
+let c=document.getElementById('c'),inp=document.getElementById('i'),btn=document.getElementById('s');
+function add(t,cls,isImg=false){
+let d=document.createElement('div');d.className='m '+cls;
+if(isImg){let im=document.createElement('img');im.src=t;d.appendChild(im);}else{d.textContent=t;}
+c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
+}
+async function askAI(q){
+if(q.toLowerCase().includes("tasveer")||q.toLowerCase().includes("image")||q.toLowerCase().includes("picture")||q.includes("تصویر")){
+add("جی بھائی، تصویر بنا رہا ہوں...","a");
+let img=`https://image.pollinations.ai/prompt/${encodeURIComponent(q)}?width=512&height=512&nologo=true&seed=${Date.now()}`;
+setTimeout(()=>{add(img,"a",true);},1000);
+return;
+}
+let load=add("سوچ رہا ہوں...","a");
+try{
+let res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,{
+method:"POST",headers:{"Content-Type":"application/json"},
+body:JSON.stringify({contents:[{parts:[{text:`Tum Lucky AI ho, tumhe Saires bhai ne banaya hai. Tum hamesha Roman Urdu ya Urdu me pyar se jawab dete ho. Sawal: ${q}` }]}]})
+});
+let data=await res.json();
+load.remove();
+let ans=data.candidates?.[0]?.content?.parts?.[0]?.text;
+if(!ans) ans="بھائی Key کا مسئلہ ہے۔ نئی Key ڈال کر دوبارہ چیک کرو۔";
+add(ans,"a");
+}catch(e){load.remove();add("انٹرنیٹ یا API Key کا مسئلہ ہے بھائی۔","a");}
+}
+function send(){let q=inp.value.trim();if(!q)return;add(q,"u");inp.value="";askAI(q);}
+btn.onclick=send;inp.onkeydown=e=>{if(e.key=="Enter")send();};
+add("السلام علیکم! میں Lucky AI ہوں۔ اب میرا دماغ نیا ہے، ہر سوال کا صحیح جواب دوں گا اور تصویر بھی بناؤں گا۔","a");
 </script>
 </body>
 </html>
